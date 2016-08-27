@@ -19,11 +19,14 @@
         <!-- Theme CSS -->
         <link href="css/freelancer.min.css" rel="stylesheet"/>
 
+        <!-- Base CSS-->
+        <link href="css/base.css" rel="stylesheet"/>
+        
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
-
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -36,7 +39,7 @@
     <h:body id="page-top" class="index">
 
         <!-- Navigation -->
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
@@ -77,18 +80,29 @@
             <!-- /.container-fluid -->
         </nav>
 
-        <section id="full-page">
-            <!-- Button trigger modal create user -->
-            <div class="text-center col-md-6 col-md-offset-3 container">
-                <div class="row">
-                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-add-user">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
-                    </button> 
+        <!-- Notification bar -->
+        <div id="notification-bar" class="container">
+            <div class="row">
+                <!-- Put here your output notification message -->
+            </div>
+        </div>
+
+        <!-- Page content starts here -->
+        <div class="container">
+            <div class="row">
+                <!-- Button trigger modal create user -->
+                <div class="text-center col-md-6 col-md-offset-3 container">
+                    <div class="row">
+                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-add-user">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
+                        </button> 
+                    </div>
                 </div>
             </div>
-        </section>
-
-
+        </div>
+        
+        <!-- End page content -->
+        
         <!-- Modal create user -->
         <h:form class="form-horizontal">
             <div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -104,7 +118,7 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Username</label>
                                     <div class="controls">
-                                        <h:inputText value="#{createUserBean.username}" class="input-xlarge" />
+                                        <p:inputText value="#{createUserBean.username}" class="input-xlarge" />
                                         <p class="help-block">Username can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
@@ -113,7 +127,7 @@
                                     <!-- Password-->
                                     <label class="control-label" for="password">Password</label>
                                     <div class="controls">
-                                        <h:inputText value="#{createUserBean.password}" class="input-xlarge"/>
+                                        <p:password value="#{createUserBean.password}" class="input-xlarge"/>
                                         <p class="help-block">Password should be at least 4 characters</p>
                                     </div>
                                 </div>
@@ -142,10 +156,8 @@
                 </div>
             </div>
         </h:form>
-        
-        
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->

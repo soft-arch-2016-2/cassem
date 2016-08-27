@@ -60,6 +60,7 @@ public class CreateUserBean {
     public void createUser(){
         HandleUser handleUser = new HandleUser();
         message = handleUser.createAccount(username, password, type);
+        message = Util.buildSuccess("Correct", message);
     }
 
 }
