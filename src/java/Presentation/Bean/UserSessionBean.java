@@ -51,6 +51,14 @@ public class UserSessionBean {
         this.message = message;
     }
 
+    public void isLogged(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        String username = (String) context.getExternalContext().getSessionMap().get("user");
+        if(username == null)
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/login?faces-redirect=true");
+    }
+    
+    
     @EJB
     public String login() {
         HandleUser handleUser = new HandleUser();
@@ -66,7 +74,6 @@ public class UserSessionBean {
             message = "";
             return "base?faces-redirect=true";
         }
-        
     }
 
     public String logout() {
