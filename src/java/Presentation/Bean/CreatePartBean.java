@@ -79,7 +79,7 @@ public class CreatePartBean {
     }
     
     public String getMessage() {
-        return category;
+        return message;
     }
 
     public void setMessage(String message) {
@@ -88,7 +88,6 @@ public class CreatePartBean {
     
     public void createPart(){
         HandlePart HandlePart = new HandlePart();
-        System.out.println("name" + name);
         message = HandlePart.createPart(name, stock, maxStock, provider, price, category);
         message = Util.buildSuccess("Correct", message);
     }

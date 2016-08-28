@@ -81,21 +81,13 @@
             <!-- /.container-fluid -->
         </nav>
 
-        <!-- Notification bar -->
-        <div id="notification-bar" class="container">
-            <div class="row">
-                <!-- Put here your output notification message -->
-            </div>
-        </div>
-
         <!-- Page content starts here -->
-        
         <div id="page-content">
 
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createUserBean.message}" escape="false" />
+                    <h:outputText value="#{createPartBean.message}" escape="false" />
                 </div>
             </div>
 
@@ -116,14 +108,6 @@
             <!-- End page content -->
 
         </div>
-
-        
-        <!-- Notification bar -->
-            <div id="notification-bar" class="container">
-                <div class="row">
-                    <h:outputText value="#{createPartBean.message}" escape="false" />
-                </div>
-            </div>
         
         <!-- Modal create part -->
         <h:form class="form-horizontal">
