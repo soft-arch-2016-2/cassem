@@ -6,6 +6,7 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandlePart;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -15,7 +16,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class CreatePartBean {
+public class CreatePartBean implements Serializable{
     
     private String name;
     private int stock;

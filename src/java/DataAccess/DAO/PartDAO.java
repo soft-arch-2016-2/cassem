@@ -5,11 +5,13 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.Auth;
 import DataAccess.Entity.Part;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 
 
@@ -31,5 +33,20 @@ public class PartDAO {
             em.close();
         }
         return part;
+    }
+    
+    public List<Part> listAllParts(){
+        EntityManager em = emf1.createEntityManager();
+        
+        List<Part> parts = null;
+        try {
+            parts = em.createNamedQuery("Part.findAll").getResultList();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }finally{
+            em.close();
+        }
+
+        return parts;
     }
 }

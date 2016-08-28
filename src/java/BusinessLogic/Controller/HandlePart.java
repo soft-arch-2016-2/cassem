@@ -7,6 +7,9 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.PartDAO;
 import DataAccess.Entity.Part;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Query;
 
 public class HandlePart {
     
@@ -22,6 +25,12 @@ public class HandlePart {
             response = "Part has been created succesfully";
         }
         return response;
+    }
+    
+    public List<Part> getAllParts(){
+        PartDAO partDAO = new PartDAO();
+        List<Part> dataList = partDAO.listAllParts();
+        return dataList;
     }
     
 }
