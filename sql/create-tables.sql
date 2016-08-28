@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `dbcassem`.`sale` (
   `user_id` INT NOT NULL,
   `client_id` INT NOT NULL,
   `date` DATE NOT NULL,
-  PRIMARY KEY (`sale_id`, `user_id`, `client_id`),
+  PRIMARY KEY (`sale_id`),
   INDEX `fk_sale_buyer1_idx` (`client_id` ASC),
   INDEX `fk_sale_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_sale_buyer1`
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `dbcassem`.`sale_has_car` (
   `car_id` INT NOT NULL,
   `sale_id` INT NOT NULL,
   `amount` INT NOT NULL,
-  PRIMARY KEY (`individual_sale_id`, `car_id`, `sale_id`),
+  PRIMARY KEY (`individual_sale_id`),
   INDEX `fk_individual_sale_car1_idx` (`car_id` ASC),
   INDEX `fk_individual_sale_sale1_idx` (`sale_id` ASC),
   CONSTRAINT `fk_individual_sale_car1`
