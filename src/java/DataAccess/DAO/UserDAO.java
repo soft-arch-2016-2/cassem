@@ -50,19 +50,19 @@ public class UserDAO {
         return user;
     }
     
-    public Integer searchUserIdByUsernameAndPassword(String username, String password){
+    public String searchUserIdByUsernameAndPassword(String username, String password){
         EntityManager em = emf1.createEntityManager();
 
-        //Query query = em.createNamedQuery("User.findByUsernameAndPassword");
-        Query query = em.createQuery("SELECT u.userId FROM User u WHERE u.username = :username AND u.password = :password");
+        Query query = em.createNamedQuery("Auth.findByUsernameAndPassword");
+        //Query query = em.createQuery("SELECT u.userId FROM User u WHERE u.username = :username AND u.password = :password");
         
         query.setParameter("username", username);
         query.setParameter("password", password);
         
-        Integer userId = null;
+        String userId = null;
 
         try {
-            userId = (Integer) query.getSingleResult();
+            userId = (String) query.getSingleResult();
         } catch (Exception e) {
 
         } finally {

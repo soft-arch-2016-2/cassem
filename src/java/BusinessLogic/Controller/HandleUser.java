@@ -5,13 +5,9 @@
  */
 package BusinessLogic.Controller;
 
-import DataAccess.DAO.AdminDAO;
-import DataAccess.DAO.EmployeeDAO;
-import DataAccess.DAO.SellerDAO;
+import DataAccess.DAO.AuthDAO;
 import DataAccess.DAO.UserDAO;
-import DataAccess.Entity.Admin;
-import DataAccess.Entity.Employee;
-import DataAccess.Entity.Seller;
+import DataAccess.Entity.Auth;
 import DataAccess.Entity.User;
 
 /**
@@ -24,61 +20,37 @@ public class HandleUser {
     private static final String EMPLOYEE = "EMPLOYEE";
     private static final String SELLER = "SELLER";
 
-    public String createAccount(String username, String password, String type) {
-        String response = "";
+    public String createAccount(String username, String password, String role) {
+        String response = "User has not been created";
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
+        if (role.equals(ADMIN) || role.equals(EMPLOYEE) || role.equals(SELLER)) {
+            Auth auth = new Auth(username, password);
 
-        UserDAO userDAO = new UserDAO();
-        User userE = userDAO.persist(user);
+            AuthDAO authDAO = new AuthDAO();
+            Auth authE = authDAO.persist(auth);
 
-        boolean userCreated = userE != null, userTypeCreated = false;
+            if (authE != null) {
+                User user = new User();
+                user.setUsername(auth);
+                user.setRole(role);
 
-        if (userCreated) {
-            switch (type) {
-                case ADMIN:
-                    Admin admin = new Admin();
-                    admin.setUserId(userE.getUserId());
-                    AdminDAO adminDAO = new AdminDAO();
-                    Admin adminE = adminDAO.persist(admin);
-                    userTypeCreated |= adminE != null;
-                    break;
-                case EMPLOYEE:
-                    Employee employee = new Employee();
-                    employee.setUserId(userE.getUserId());
-                    EmployeeDAO employeeDAO = new EmployeeDAO();
-                    Employee employeeE = employeeDAO.persist(employee);
-                    userTypeCreated |= employeeE != null;
-                    break;
-                case SELLER:
-                    Seller seller = new Seller();
-                    seller.setUserId(userE.getUserId());
-                    SellerDAO sellerDAO = new SellerDAO();
-                    Seller sellerE = sellerDAO.persist(seller);
-                    userTypeCreated |= sellerE != null;
-                    break;
+                UserDAO userDAO = new UserDAO();
+                User userE = userDAO.persist(user);
+                
+                if(userE != null){
+                    response = "User has been created succesfully";
+                }
             }
         }
-
-        if (userCreated && userTypeCreated) {
-            response = "User has been created succesfully";
-        } else {
-            response = "User has not been created";
-        }
-
         return response;
     }
-    
-    public Integer loginUser(String username, String password){
-        Integer userId = null;
-        
+
+    public String loginUser(String username, String password) {
+        String userId = null;
+
         UserDAO userDAO = new UserDAO();
         userId = userDAO.searchUserIdByUsernameAndPassword(username, password);
-        
-        if(userId == null) userId = -11235813;
-        
+
         return userId;
     }
 }

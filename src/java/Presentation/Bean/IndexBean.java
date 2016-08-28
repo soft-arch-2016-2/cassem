@@ -45,7 +45,7 @@ public class IndexBean {
      
     public void loginUser(){
         HandleUser handleUser = new HandleUser();
-        userId = handleUser.loginUser(username, password);
+        username = handleUser.loginUser(username, password);
     }
     
 }
