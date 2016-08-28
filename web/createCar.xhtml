@@ -87,7 +87,7 @@
              Notification bar 
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createCarBean.message}" escape="false" />
+                    <h:outputText value="#{createCarBeanS.message}" escape="false" />
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
             
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createCarBean.message}" escape="false" />
+                    <h:outputText value="#{createCarBeanS.message}" escape="false" />
                 </div>
             </div>
             
@@ -127,7 +127,7 @@
                             <div class="control-group">
                                 <label class="control-label"  for="username">Name</label>
                                 <div class="controls">
-                                    <p:inputText value="#{createCarBean.name}" class="input-xlarge" />
+                                    <p:inputText value="#{createCarBeanS.name}" class="input-xlarge" />
                                     <p class="help-block">name can contain any letters or numbers, without spaces</p>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                             <div class="control-group">                   
                                 <label class="control-label"  for="username">Price</label>
                                 <div class="controls">
-                                    <p:inputText value="#{createCarBean.price}" class="input-xlarge" />
+                                    <p:inputText value="#{createCarBeanS.price}" class="input-xlarge" />
                                     <p class="help-block">Price can contain only one number without spaces</p>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                                     <h3 class="panel-title"> Avaliable part</h3>
                                 </div>
                                 <p:fieldset id="availableCarsField"> 
-                                    <p:dataGrid id="availableCars" var="car" value="#{createCarBean.parts}" columns="3" >
+                                    <p:dataGrid id="availableCars" var="car" value="#{createCarBeanS.parts}" columns="3" >
                                         <p:panel id="pnl" header="#{car.name}" style="text-align:center">
                                             <h:panelGrid  columns="2" style="width:100%">
                                                 <p:column headerText="Id">
@@ -195,8 +195,8 @@
                                 </div>
                                 <p:fieldset id="selectedCars">
                                     <p:outputPanel id="dropArea">
-                                        <h:outputText value="Drop part here" rendered="#{empty createCarBean.partsAdded}" style="font-size:24px;" />
-                                        <p:dataTable id="selectedCarsTable" var="car" value="#{createCarBean.partsAdded}" rendered="#{not empty createCarBean.partsAdded}">
+                                        <h:outputText value="Drop part here" rendered="#{empty createCarBeanS.partsAdded}" style="font-size:24px;" />
+                                        <p:dataTable id="selectedCarsTable" var="car" value="#{createCarBeanS.partsAdded}" rendered="#{not empty createCarBeanS.partsAdded}">
                                             <p:column headerText="Id">
                                                 <h:outputText value="#{car.partId}" />
                                             </p:column>
@@ -217,14 +217,14 @@
                                 </p:fieldset>
                             </div>
                             <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">
-                                <p:ajax listener="#{createCarBean.onCarDrop}" update="dropArea availableCars" />
+                                <p:ajax listener="#{createCarBeanS.onCarDrop}" update="dropArea availableCars" />
                             </p:droppable>
                         </div>                        
                     </div>
                     
                     <div class="container">
                     <div align="center" draggable="false" >
-                    <h:commandButton action="#{createCarBean.createCar()}" value="Create Car" class="btn btn-primary"/>
+                    <h:commandButton action="#{createCarBeanS.createCar()}" value="Create Car" class="btn btn-primary"/>
                     </div>
                     </div>
                     
