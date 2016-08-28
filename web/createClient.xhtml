@@ -159,15 +159,21 @@
                     <tr>
                         <ui:repeat value="#{row}" var="cell">
                             <td> #{cell.getClientId()} </td>
-                            <td>         
-                                <p:inplace id="ajax" editor="true">
-                                    <p:ajax event="save" listener="#{createClientBean.updateClient( createClientBean.clients )}"/>
-                                    <p:inputText value="#{cell.getName()}" required="true" label="text"/>
-                                </p:inplace>                
+                            <td>
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="true">
+                                        <p:ajax event="save"/>
+                                            <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createClientBean.updateClient}">
+                                                <f:attribute name="idClient" value="#{row.clientId}" />
+                                            </p:inputText>
+                                    </p:inplace>
+                                </h:form>
                             </td>
                             <td>
                                 <h:form>
-                                    <h:commandButton action="#{createClientBean.deleteClient( row )}" value="Delete" class="btn btn-danger"/>
+                                    <h:commandButton action="#{createClientBean.deleteClient( row )}" value="Delete" class="btn btn-danger">
+                                        <!--<span class="glyphicon glyphicon-trash"/>-->
+                                    </h:commandButton> 
                                 </h:form>
                             </td>
                         </ui:repeat>
@@ -186,13 +192,7 @@
 
         <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#example').DataTable();
-            });
-        </script>
-
+        <script src="js/base.js"></script>
 
     </h:body>
 </html>

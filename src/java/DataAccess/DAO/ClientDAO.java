@@ -75,4 +75,26 @@ public class ClientDAO {
         return client;  
     }
     
+    public Client update(Client oldClient, Client newClient){
+        
+        EntityManager em = emf1.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+            
+            oldClient.setName(newClient.getName());
+            em.merge(oldClient);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            oldClient = null;
+        } finally {
+            em.close();
+        }
+        return oldClient;  
+    }
+    
+    
 }

@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class HandleClient {
     
+    public List<Client> getAllClients() {
+        
+        ClientDAO clientDAO = new ClientDAO();
+        List<Client> query = clientDAO.searchAllClient();
+        return query;
+    }
+    
     public String createClient(String name) {
             
         String response = "Client has not been created";
@@ -31,21 +38,28 @@ public class HandleClient {
         return response;
     }
     
-    public List<Client> getAllClients() {
-        
-        ClientDAO clientDAO = new ClientDAO();
-        List<Client> query = clientDAO.searchAllClient();
-        return query;
-    }
-    
     public String deleteClient(Client client){
         
-        String response = "Client has not been remove";
+        String response = "Client has not been removed";
         
         ClientDAO clientDAO = new ClientDAO();
         
         if(clientDAO.delete(client) != null){
             response = "Client has been removed succesfully";
+        }
+        
+        return response;
+        
+    }
+    
+    public String updateClient(Client oldClient, Client newClient){
+        
+        String response = "Client has not been updated";
+        
+        ClientDAO clientDAO = new ClientDAO();
+        
+        if(clientDAO.update(oldClient, newClient) != null){
+            response = "Client has been updated succesfully";
         }
         
         return response;

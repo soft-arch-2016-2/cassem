@@ -7,11 +7,14 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleClient;
 import DataAccess.Entity.Client;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 /**
@@ -61,6 +64,12 @@ public class CreateClientBean implements Serializable{
         //}
         return clients;
     }
+
+    public void createClient() {
+        HandleClient handleClient = new HandleClient();
+        message = handleClient.createClient(name);
+        message = Util.buildSuccess("Correct", message);
+    }
     
     public void deleteClient( Client client){
         
@@ -70,20 +79,29 @@ public class CreateClientBean implements Serializable{
         message = Util.buildSuccess("Correct", message);
     }
     
-    /*
-    public void updateNameClient(ValueChangeEvent event, Client client) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue(); 
-    }*/
-    
-    public void updateClient(List<Client> c){
-        System.out.println(c);
-    }
-
-    public void createClient() {
+    public void updateClient(ValueChangeEvent event) throws IOException {
+       
+        //Object oldValue = event.getOldValue();
+        //Object newValue = event.getNewValue(); 
+        
+        UIInput component = (UIInput) event.getComponent();
+        
+        int idClient = Integer.parseInt(component.getAttributes().get("idClient")+"");
+        
+        Client oldClient = new Client();
+        oldClient.setClientId(idClient);
+        oldClient.setName(event.getOldValue()+"");
+        
+        Client newClient = new Client();
+        newClient.setClientId(idClient);
+        newClient.setName(event.getNewValue()+"");
+        
         HandleClient handleClient = new HandleClient();
-        message = handleClient.createClient(name);
+        message = handleClient.updateClient(oldClient, newClient);
         message = Util.buildSuccess("Correct", message);
+        
+        FacesContext.getCurrentInstance().getExternalContext().redirect("createClient.xhtml");
+ 
     }
 
 }
