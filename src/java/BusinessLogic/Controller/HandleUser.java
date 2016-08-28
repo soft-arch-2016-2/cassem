@@ -9,6 +9,7 @@ import DataAccess.DAO.AuthDAO;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Auth;
 import DataAccess.Entity.User;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -20,8 +21,10 @@ public class HandleUser {
     private static final String EMPLOYEE = "EMPLOYEE";
     private static final String SELLER = "SELLER";
 
-    public String createAccount(String username, String password, String role) {
-        String response = "User has not been created";
+    public ResponseMessage createAccount(String username, String password, String role) {
+
+        String message = null;
+        boolean result = false;
 
         if (role.equals(ADMIN) || role.equals(EMPLOYEE) || role.equals(SELLER)) {
             Auth auth = new Auth(username, password);
@@ -36,21 +39,38 @@ public class HandleUser {
 
                 UserDAO userDAO = new UserDAO();
                 User userE = userDAO.persist(user);
-                
-                if(userE != null){
-                    response = "User has been created succesfully";
+
+                if (userE != null) {
+                    result = true;
+                    message = "User has been created succesfully";
                 }
             }
         }
+
+        ResponseMessage response = new ResponseMessage(result, message);
+        
         return response;
     }
-
-    public String loginUser(String username, String password) {
-        String userId = null;
-
+    
+    public ResponseMessage login(String username, String password){
+        
+        boolean successful = false;
+        String message = null;
+        
         UserDAO userDAO = new UserDAO();
-        userId = userDAO.searchUserIdByUsernameAndPassword(username, password);
+        
+        String user_username = userDAO.searchUserIdByUsernameAndPassword(username, password);
+        FacesContext context = FacesContext.getCurrentInstance();
 
-        return userId;
-    }
+        if (user_username == null) {
+            //context.addMessage(null, new FacesMessage("Unknown login, try again"));
+        } else {
+            context.getExternalContext().getSessionMap().put("user", user_username);
+            successful = true;
+            message = "base?faces-redirect=true";
+        }
+        
+        ResponseMessage response = new ResponseMessage(successful, message);
+        return response;
+    } 
 }

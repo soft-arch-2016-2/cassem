@@ -7,24 +7,25 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
 import BusinessLogic.Controller.ResponseMessage;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
- * @author arqsoft_2016_2
+ * @author fabianlm17-toshiba
  */
 @ManagedBean
-@ViewScoped
-public class CreateUserBean {
-    
+@RequestScoped
+public class UserSessionBean {
+
+    public UserSessionBean() {
+    }
+
     private String username;
     private String password;
     private String message;
-    private String type;
-    
-    public CreateUserBean(){
-    }
 
     public String getUsername() {
         return username;
@@ -50,23 +51,26 @@ public class CreateUserBean {
         this.message = message;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-    
-    public void createUser(){
+    @EJB
+    public String login() {
         HandleUser handleUser = new HandleUser();
-        ResponseMessage response = handleUser.createAccount(username, password, type);
-        
-        if(response.isSuccessful())
-            message = Util.buildSuccess("Correct", response.getMessage());
-        else
-            message = Util.buildDanger("Error", "");
+
+        ResponseMessage response = handleUser.login(username, password);
+
         username = password = "";
+        
+        if (!response.isSuccessful()) {
+            message = Util.buildDanger("Error", "Username or password incorrect");
+            return "";
+        } else {
+            message = "";
+            return "base?faces-redirect=true";
+        }
+        
     }
 
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index?faces-redirect=true";
+    }
 }

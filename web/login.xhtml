@@ -47,7 +47,8 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="#page-top">Cassem</a>
+                    <h:link value="Cassem" outcome="index" class="navbar-brand"/>
+                    <!--<a class="navbar-brand" href="#page-top">Cassem</a>-->
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,26 +57,26 @@
                         <li class="hidden">
                             <a href="#page-top"></a>
                         </li>
-                        <li class="page-scroll">
-                            <h:link value="Users" outcome="createUser" />
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#parts">Parts</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#cars">Cars</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#clients">Clients</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#sales">Sales</a>
-                        </li>
-                        <li class="page-scroll">
-                            <h:form>
-                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
-                            </h:form>
-                        </li>
+                        <!--
+                         <li class="page-scroll">
+                             <h:link value="Users" outcome="createUser" />
+                         </li>
+                         <li class="page-scroll">
+                             <a href="#parts">Parts</a>
+                         </li>
+                         <li class="page-scroll">
+                             <a href="#cars">Cars</a>
+                         </li>
+                         <li class="page-scroll">
+                             <a href="#clients">Clients</a>
+                         </li>
+                         <li class="page-scroll">
+                             <a href="#sales">Sales</a>
+                         </li>
+                         <li class="page-scroll">
+                             <a href="#logout">Logout</a>
+                         </li>
+                        -->
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -88,15 +89,53 @@
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <!-- Put here your output notification message -->
+                    <h:outputText value="#{userSessionBean.message}" escape="false" />
                 </div>
             </div>
 
             <!-- Page content starts here -->
 
-            <!-- End page content -->
-        </div>
 
+            <!-- Login Section -->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>Login</h2>
+                        <hr class="star-light"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h:form>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-2 text-center">
+                                    <h3>Username</h3>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p:inputText value="#{userSessionBean.username}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-2 text-center">
+                                    <h3>Password</h3>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p:password value="#{userSessionBean.password}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-offset-5 col-sm-offset-2 col-sm-offset-2 col-xs-offset-2">
+                                    <h:commandButton action="#{userSessionBean.login()}" value="Login" class="btn btn-success btn-lg"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End page content -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
