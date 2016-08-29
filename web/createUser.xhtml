@@ -1,7 +1,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
 
@@ -21,6 +22,9 @@
 
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
+
+        <!-- Table CSS-->
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -160,10 +164,67 @@
             </div>
         </h:form>
 
+        <!-- Start data table -->
+
+        <div id="table-content">
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <ui:repeat value="#{createUserBean.allUsers}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td> #{cell.userId} </td>
+                            <td>
+                                <h:form id="implace-form-username" >
+                                    <p:inplace id="ajax-username" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.getUsername().username}" required="true" label="text" valueChangeListener="#{createUserBean.updateUserUsername}">
+                                            <f:attribute name="idUser" value="#{row.userId}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form id="implace-form-password" >
+                                    <p:inplace id="ajax-password" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.getUsername().password}" required="true" label="text" valueChangeListener="#{createUserBean.updateUserPassword}">
+                                            <f:attribute name="idUser" value="#{row.userId}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                            <td> #{cell.getRole()} </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton action="#{createUserBean.deleteUser( row )}" value="Delete" class="btn btn-danger">
+                                        <!--<span class="glyphicon glyphicon-trash"/>-->
+                                    </h:commandButton> 
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </div>
+
+
+        <!-- End data table -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
+
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/base.js"></script>
     </h:body>
 </html>
