@@ -32,7 +32,7 @@ public class LogOutTest {
     driver.findElement(By.id("j_idt9:j_idt13")).clear();
     driver.findElement(By.id("j_idt9:j_idt13")).sendKeys("tulio85304");
     driver.findElement(By.name("j_idt9:j_idt15")).click();
-    driver.get("http://localhost:8080/cassem/faces/createPart.xhtml");
+    driver.findElement(By.name("j_idt13:j_idt14")).click();
   }
 
   @After
