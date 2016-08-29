@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/sql/inserts-users.sql</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/src/java/DataAccess/DAO/AuthDAO.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/web/createCar.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/web/base.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/src/java/Presentation/Bean/UserSessionBean.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/src/java/BusinessLogic/Controller/HandleUser.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/web/createUser.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/web/createClient.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/Cassem/web/createPart.xhtml</file>

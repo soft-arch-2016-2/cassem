@@ -35,17 +35,22 @@ public class HandleUser {
 
                 Auth auth = new Auth(username, password);
 
-                User user = new User();
-                user.setRole(role);
-                user.setUsername(auth);
+                Auth authE = authDAO.persist(auth);
 
-                UserDAO userDAO = new UserDAO();
-                
-                User userE = userDAO.persist(user);
+                if (authE != null) {
 
-                if (userE != null) {
-                    result = true;
-                    message = "User has been created succesfully";
+                    User user = new User();
+                    user.setRole(role);
+                    user.setUsername(auth);
+
+                    UserDAO userDAO = new UserDAO();
+
+                    User userE = userDAO.persist(user);
+
+                    if (userE != null) {
+                        result = true;
+                        message = "User has been created succesfully";
+                    }
                 }
             }
 
@@ -83,8 +88,8 @@ public class HandleUser {
         List<User> users = userDAO.searchAllUsers();
         return users;
     }
-    
-    public String getRoleByUsername(String username){
+
+    public String getRoleByUsername(String username) {
         UserDAO userDAO = new UserDAO();
         String role = userDAO.searchRoleByUsername(username);
         return role;
