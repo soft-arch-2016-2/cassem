@@ -136,7 +136,7 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">stock</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createPartBean.stock}" class="input-xlarge" />
+                                        <p:spinner id="stock" value="#{createPartBean.stock}" />
                                         <p class="help-block">stock can contain only one number without spaces</p>
                                     </div>
                                 </div>
@@ -145,7 +145,8 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">maxStock</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createPartBean.maxStock}" class="input-xlarge" />
+                                        <p:spinner id="maxStock" value="#{createPartBean.maxStock}" />
+                                        <!--<p:inputText value="#{createPartBean.maxStock}" class="input-xlarge" />-->
                                         <p class="help-block">maxStock can contain only one number without spaces</p>
                                     </div>
                                 </div>
@@ -163,6 +164,7 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Price</label>
                                     <div class="controls">
+                                        
                                         <p:inputText value="#{createPartBean.price}" class="input-xlarge" />
                                         <p class="help-block">price can contain only one number without spaces</p>
                                     </div>
@@ -224,7 +226,8 @@
                 </ui:repeat>
             </table>
         </div>
-
+        
+        
         
         
         
