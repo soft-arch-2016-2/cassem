@@ -65,11 +65,6 @@ public class CreateCarBeanS {
     
 
     public void createCar(){
-        //HandlePart HandlePart = new HandlePart();
-       //parts = HandlePart.getAllParts();
-        //for( int i = 0; i < parts.size(); i++ ){
-        //    System.out.println(parts.get(i).getName());
-        //}
         HandleCar HandleCar = new HandleCar();
         message = HandleCar.createCar(name,price,partsAdded);
         message = Util.buildSuccess("Correct", message);
