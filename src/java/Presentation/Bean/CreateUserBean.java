@@ -6,6 +6,7 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
+import BusinessLogic.Controller.ResponseMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -59,8 +60,13 @@ public class CreateUserBean {
     
     public void createUser(){
         HandleUser handleUser = new HandleUser();
-        message = handleUser.createAccount(username, password, type);
-        message = Util.buildSuccess("Correct", message);
+        ResponseMessage response = handleUser.createAccount(username, password, type);
+        
+        if(response.isSuccessful())
+            message = Util.buildSuccess("Correct", response.getMessage());
+        else
+            message = Util.buildDanger("Error", "");
+        username = password = "";
     }
 
 }

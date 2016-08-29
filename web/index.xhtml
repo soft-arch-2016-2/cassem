@@ -45,7 +45,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+                    <a class="navbar-brand" href="#page-top">Cassem</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,10 +58,7 @@
                             <h:link value="Base" outcome="base" />
                         </li>
                         <li class="page-scroll">
-                            <a href="#portfolio">Portfolio</a>
-                        </li>
-                        <li class="page-scroll">
-                            <a href="#login">Login</a>
+                            <h:link value="Login" outcome="login" />
                         </li>
                         <li class="page-scroll">
                             <a href="#about">About</a>
@@ -81,132 +78,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <img class="img-responsive" src="img/profile.png" alt=""/>
+                        <img style="border-radius: 30%" class="img-responsive" src="img/carassem.png" alt=""/>
                         <div class="intro-text">
-                            <span class="name">Start Bootstrap</span>
+                            <span class="name">Cassem</span>
                             <hr class="star-light" />
-                            <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-
-        <!-- Portfolio Grid Section -->
-        <section id="portfolio">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2>Portfolio</h2>
-                        <hr class="star-primary"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/cabin.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/cake.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/circus.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/game.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/safe.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div>
-                            <img src="img/portfolio/submarine.png" class="img-responsive" alt=""/>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Login Section -->
-        <section id="login">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2>Login</h2>
-                        <hr class="star-light"/>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <h:form>
-                            <div class="row">
-                                <div class="col-lg-4 col-lg-offset-2 text-center">
-                                    <h3>Username</h3>
-                                </div>
-                                <div class="col-lg-4">
-                                    <p:inputText value="#{indexBean.username}"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-lg-offset-2 text-center">
-                                    <h3>Password</h3>
-                                </div>
-                                <div class="col-lg-4">
-                                    <p:password value="#{indexBean.password}"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-lg-offset-5 col-sm-offset-2 col-sm-offset-2 col-xs-offset-2">
-                                    <h:commandButton action="#{indexBean.loginUser()}" value="Login" class="btn btn-success btn-lg"/>
-                                </div>
-                            </div>
-                            <h:outputText value="#{indexBean.userId}"/>
-                        </h:form>
-                    </div>
-
-                </div>
-            </div>
-        </section>
 
         <!-- About Section -->
         <section id="about">
@@ -218,16 +98,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-lg-offset-2">
-                        <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
-                    </div>
-                    <div class="col-lg-8 col-lg-offset-2 text-center">
-                        <a href="#" class="btn btn-lg btn-outline">
-                            <i class="fa fa-download"></i> Download Theme
-                        </a>
+                    <div class="col-lg-6 col-lg-offset-3 text-center">
+                        <p>Cassem is a system information that manages the process inside a car assembly plant</p>
                     </div>
                 </div>
             </div>
@@ -238,7 +110,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2>Contact Me</h2>
+                        <h2>Contact Admin</h2>
                         <hr class="star-primary"/>
                     </div>
                 </div>
@@ -294,12 +166,12 @@
             <div class="footer-above">
                 <div class="container">
                     <div class="row">
-                        <div class="footer-col col-md-4">
+                        <div class="footer-col col-md-6">
                             <h3>Location</h3>
-                            <p>3481 Melrose Place
-                                <br>Beverly Hills, CA 90210</br></p>
+                            <p>Calle 26 #34-56
+                                <br>Bogotá, Colombia</br></p>
                         </div>
-                        <div class="footer-col col-md-4">
+                        <div class="footer-col col-md-6">
                             <h3>Around the Web</h3>
                             <ul class="list-inline">
                                 <li>
@@ -319,10 +191,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="footer-col col-md-4">
-                            <h3>About Freelancer</h3>
-                            <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -330,7 +198,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            Copyright &copy; Your Website 2016
+                            Copyright &copy; Cassem 2016
                         </div>
                     </div>
                 </div>
