@@ -6,10 +6,8 @@
 package BusinessLogic.Controller;
 
 import DataAccess.DAO.AuthDAO;
-import DataAccess.DAO.ClientDAO;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Auth;
-import DataAccess.Entity.Client;
 import DataAccess.Entity.User;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -26,21 +24,23 @@ public class HandleUser {
 
     public ResponseMessage createAccount(String username, String password, String role) {
 
-        String message = null;
+        String message = "User has not been created succesfully";
         boolean result = false;
 
         if (role.equals(ADMIN) || role.equals(EMPLOYEE) || role.equals(SELLER)) {
-            Auth auth = new Auth(username, password);
 
             AuthDAO authDAO = new AuthDAO();
-            Auth authE = authDAO.persist(auth);
 
-            if (authE != null) {
+            if (authDAO.searchByUsername(username) == null) {
+
+                Auth auth = new Auth(username, password);
+
                 User user = new User();
-                user.setUsername(auth);
                 user.setRole(role);
+                user.setUsername(auth);
 
                 UserDAO userDAO = new UserDAO();
+                
                 User userE = userDAO.persist(user);
 
                 if (userE != null) {
@@ -48,6 +48,7 @@ public class HandleUser {
                     message = "User has been created succesfully";
                 }
             }
+
         }
 
         ResponseMessage response = new ResponseMessage(result, message);
@@ -102,7 +103,7 @@ public class HandleUser {
 
         return response;
     }
-    
+
     public String updateUserPassword(Integer userId, String newPassword) {
 
         String response = "User has not been updated";
@@ -122,18 +123,18 @@ public class HandleUser {
 
         return response;
     }
-    
-    public String deleteUser(User user){
-        
+
+    public String deleteUser(User user) {
+
         String response = "User has not been removed";
-        
+
         UserDAO userDAO = new UserDAO();
-        
-        if(userDAO.delete(user) != null){
+
+        if (userDAO.delete(user) != null) {
             response = "User has been removed succesfully";
         }
-        
+
         return response;
-        
+
     }
 }

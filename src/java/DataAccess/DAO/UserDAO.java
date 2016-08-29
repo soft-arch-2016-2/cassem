@@ -5,7 +5,6 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.Client;
 import DataAccess.Entity.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -44,21 +43,6 @@ public class UserDAO {
 
         try {
             user = em.find(User.class, id);
-        } catch (Exception e) {
-
-        } finally {
-            em.close();
-        }
-        return user;
-    }
-
-    public User searchByUsername(String username) {
-        EntityManager em = emf1.createEntityManager();
-
-        User user = null;
-
-        try {
-            user = em.find(User.class, username);
         } catch (Exception e) {
 
         } finally {

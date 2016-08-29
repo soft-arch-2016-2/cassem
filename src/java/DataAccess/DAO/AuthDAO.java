@@ -6,9 +6,11 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Auth;
+import DataAccess.Entity.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class AuthDAO {
     
@@ -24,6 +26,25 @@ public class AuthDAO {
             e.printStackTrace();
             em.getTransaction().rollback();
             auth = null;
+        } finally {
+            em.close();
+        }
+        return auth;
+    }
+    
+    public Auth searchByUsername(String username) {
+        EntityManager em = emf1.createEntityManager();
+
+        Query query = em.createNamedQuery("Auth.findByUsername");
+
+        query.setParameter("username", username);
+        
+        Auth auth = null;
+
+        try {
+            auth = (Auth) query.getSingleResult();
+        } catch (Exception e) {
+
         } finally {
             em.close();
         }
