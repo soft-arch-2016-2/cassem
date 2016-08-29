@@ -167,13 +167,13 @@
                                                 <p:column headerText="Stock">
                                                     <h:outputText value="#{car.partId}" />
                                                 </p:column>
-<!--                                                <p:column headerText="Id">
-                                                    <h:outputText value="Category" />
-                                                </p:column>
-                                                <p:column headerText="Category">
-                                                    <h:outputText value="#{car.category}" />
-                                                </p:column>
                                                 <p:column headerText="Id">
+                                                    <h:outputText value="Price" />
+                                                </p:column>
+                                                <p:column headerText="Price">
+                                                    <h:outputText value="#{car.price}" />
+                                                </p:column>
+<!--                                                <p:column headerText="Id">
                                                     <h:outputText value="Provider" />
                                                 </p:column>
                                                 <p:column headerText="Provider">
@@ -223,7 +223,7 @@
                     </div>
                     
                     <div class="container">
-                    <div align="center" draggable="false" >
+                    <div align="right" draggable="false" >
                     <h:commandButton action="#{createCarBeanS.createCar()}" value="Create Car" class="btn btn-primary"/>
                     </div>
                     </div>
