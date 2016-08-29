@@ -19,13 +19,13 @@
 
         <!-- Theme CSS -->
         <link href="css/freelancer.min.css" rel="stylesheet"/>
-        
+
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
-        
-                <!-- Table CSS-->
+
+        <!-- Table CSS-->
         <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
-        
+
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -39,12 +39,18 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isLogged()}" />
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
+
     </h:head>
 
     <h:body id="page-top" class="index">
 
         <!-- Navigation -->
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
@@ -65,18 +71,21 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
+
                         </li>
                         <li class="page-scroll">
                             <h:link value="Car" outcome="createCar"/>
                         </li>
                         <li class="page-scroll">
-                            <a href="#clients">Clients</a>
+                            <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
                             <a href="#sales">Sales</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#logout">Logout</a>
+                            <h:form>
+                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                            </h:form>
                         </li>
                     </ul>
                 </div>
@@ -112,7 +121,7 @@
             <!-- End page content -->
 
         </div>
-        
+
         <!-- Modal create part -->
         <h:form class="form-horizontal">
             <div class="modal fade" id="modal-create-part" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -140,7 +149,7 @@
                                         <p class="help-block">stock can contain only one number without spaces</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     <!-- Username -->
                                     <label class="control-label"  for="username">maxStock</label>
@@ -150,7 +159,7 @@
                                         <p class="help-block">maxStock can contain only one number without spaces</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Provider</label>
@@ -164,12 +173,12 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Price</label>
                                     <div class="controls">
-                                        
+
                                         <p:inputText value="#{createPartBean.price}" class="input-xlarge" />
                                         <p class="help-block">price can contain only one number without spaces</p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="control-group">
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Category</label>
@@ -189,8 +198,8 @@
                 </div>
             </div>
         </h:form>
-        
-        
+
+
         <div id="table-content">
             <table id="example" class="display" cellspacing="0" width="100%"> 
                 <thead>
@@ -209,8 +218,8 @@
                                     <p:inplace id="ajax" editor="true">
                                         <p:ajax event="save"/>
                                         <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createPartBean.updatePart}">
-                                                <f:attribute name="idPart" value="#{row}" />
-                                            </p:inputText>
+                                            <f:attribute name="idPart" value="#{row}" />
+                                        </p:inputText>
                                     </p:inplace>
                                 </h:form>
                             </td>
@@ -226,11 +235,11 @@
                 </ui:repeat>
             </table>
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>

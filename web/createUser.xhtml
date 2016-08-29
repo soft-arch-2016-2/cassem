@@ -38,6 +38,12 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isLogged()}" />
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
+
     </h:head>
 
     <h:body id="page-top" class="index">
@@ -48,9 +54,9 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>  <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                     </button>
-                    <h:link  class="navbar-brand" value="Cassem" outcome="base" />
+                    <a class="navbar-brand" href="#page-top">Cassem</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,18 +70,21 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
+
                         </li>
                         <li class="page-scroll">
                             <h:link value="Car" outcome="createCar"/>
                         </li>
                         <li class="page-scroll">
-                            <a href="#clients">Clients</a>
+                            <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
                             <a href="#sales">Sales</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#logout">Logout</a>
+                            <h:form>
+                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                            </h:form>
                         </li>
                     </ul>
                 </div>

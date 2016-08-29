@@ -19,10 +19,10 @@
 
         <!-- Theme CSS -->
         <link href="css/freelancer.min.css" rel="stylesheet"/>
-        
+
         <!-- Base CSS-->
         <link href="css/createcar.css" rel="stylesheet"/>
-        
+
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -36,12 +36,18 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isLogged()}" />
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
+
     </h:head>
 
     <h:body id="page-top" class="index">
 
         <!-- Navigation -->
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
@@ -62,18 +68,21 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
+
                         </li>
                         <li class="page-scroll">
-                            <a href="#cars">Cars</a>
+                            <h:link value="Car" outcome="createCar"/>
                         </li>
                         <li class="page-scroll">
-                            <a href="#clients">Clients</a>
+                            <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
                             <a href="#sales">Sales</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#logout">Logout</a>
+                            <h:form>
+                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                            </h:form>
                         </li>
                     </ul>
                 </div>
@@ -82,42 +91,42 @@
             <!-- /.container-fluid -->
         </nav>
 
-<!--        <div id="page-content">
-
-             Notification bar 
-            <div id="notification-bar" class="container">
-                <div class="row">
-                    <h:outputText value="#{createCarBeanS.message}" escape="false" />
-                </div>
-            </div>
-
-             Page content starts here 
-            <div class="container">
-                <div class="row">
-                     Button trigger modal create user 
-                    <div class="text-center col-md-6 col-md-offset-3 container">
+        <!--        <div id="page-content">
+        
+                     Notification bar 
+                    <div id="notification-bar" class="container">
                         <div class="row">
-                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-create-car">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
-                            </button> 
+                            <h:outputText value="#{createCarBeanS.message}" escape="false" />
                         </div>
                     </div>
-                </div>
-            </div>
-
-             End page content 
-
-        </div>-->
         
+                     Page content starts here 
+                    <div class="container">
+                        <div class="row">
+                             Button trigger modal create user 
+                            <div class="text-center col-md-6 col-md-offset-3 container">
+                                <div class="row">
+                                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-create-car">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                     End page content 
+        
+                </div>-->
+
         <!-- Modal create part -->
         <div id="page-content">
-            
+
             <div id="notification-bar" class="container">
                 <div class="row">
                     <h:outputText value="#{createCarBeanS.message}" escape="false" />
                 </div>
             </div>
-            
+
             <h3 align="center">Create Car</h3>
             <br></br>
             <h:form class="form-horizontal">
@@ -146,9 +155,9 @@
                     <script type="text/javascript">
                         function handleDrop(event, ui) {
                             var droppedCar = ui.draggable;
-                                droppedCar.fadeOut('fast');
+                            droppedCar.fadeOut('fast');
                         }
-                        
+
                     </script>
 
                     <div clas="row">
@@ -173,13 +182,13 @@
                                                 <p:column headerText="Price">
                                                     <h:outputText value="#{car.price}" />
                                                 </p:column>
-<!--                                                <p:column headerText="Id">
-                                                    <h:outputText value="Provider" />
-                                                </p:column>
-                                                <p:column headerText="Provider">
-                                                    <h:outputText value="#{car.provider}" />
-                                                </p:column>-->
-                                                
+                                                <!--                                                <p:column headerText="Id">
+                                                                                                    <h:outputText value="Provider" />
+                                                                                                </p:column>
+                                                                                                <p:column headerText="Provider">
+                                                                                                    <h:outputText value="#{car.provider}" />
+                                                                                                </p:column>-->
+
                                             </h:panelGrid>
                                         </p:panel>
 
@@ -221,23 +230,23 @@
                             </p:droppable>
                         </div>                        
                     </div>
-                    
+
                     <div class="container">
-                    <div align="right" draggable="false" >
-                    <h:commandButton action="#{createCarBeanS.createCar()}" value="Create Car" class="btn btn-primary"/>
+                        <div align="right" draggable="false" >
+                            <h:commandButton action="#{createCarBeanS.createCar()}" value="Create Car" class="btn btn-primary"/>
+                        </div>
                     </div>
-                    </div>
-                    
+
                 </div>
-                
-                    
+
+
 
             </h:form>
         </div>
 
-        
-        
-        
+
+
+
         <!-- End page content -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->

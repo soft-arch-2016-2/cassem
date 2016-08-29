@@ -36,6 +36,9 @@
 
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isLogged()}" />
+        
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
 
     </h:head>
 
@@ -86,6 +89,21 @@
             <!-- /.container-fluid -->
         </nav>
 
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img style="border-radius: 30%" class="img-responsive" src="img/profile_user.png" alt=""/>
+                        <div class="intro-text">
+                            <span class="name">Cassem</span>
+                            <hr class="star-light" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
         <!-- Full page -->
         <div id="page-content">
 

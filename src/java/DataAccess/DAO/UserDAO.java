@@ -50,6 +50,26 @@ public class UserDAO {
         }
         return user;
     }
+    
+    public String searchRoleByUsername(String username) {
+        EntityManager em = emf1.createEntityManager();
+
+        Query query = em.createNamedQuery("User.findRoleByUsername");
+
+        query.setParameter("username", username);
+
+        String role = null;
+
+        try {
+            role = (String) query.getSingleResult();
+        } catch (Exception e) {
+
+        } finally {
+            em.close();
+        }
+
+        return role;
+    }
 
     public String searchUserIdByUsernameAndPassword(String username, String password) {
         EntityManager em = emf1.createEntityManager();

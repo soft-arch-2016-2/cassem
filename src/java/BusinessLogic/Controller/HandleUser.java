@@ -83,6 +83,12 @@ public class HandleUser {
         List<User> users = userDAO.searchAllUsers();
         return users;
     }
+    
+    public String getRoleByUsername(String username){
+        UserDAO userDAO = new UserDAO();
+        String role = userDAO.searchRoleByUsername(username);
+        return role;
+    }
 
     public String updateUserUsername(Integer userId, String newUsername) {
 

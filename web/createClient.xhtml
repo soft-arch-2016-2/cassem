@@ -39,12 +39,18 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isLogged()}" />
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
+
     </h:head>
 
     <h:body id="page-top" class="index">
 
         <!-- Navigation -->
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
@@ -64,19 +70,22 @@
                             <h:link value="Users" outcome="createUser" />
                         </li>
                         <li class="page-scroll">
-                            <a href="#parts">Parts</a>
+                            <h:link value="Parts" outcome="createPart"/>
+
                         </li>
                         <li class="page-scroll">
-                            <a href="#cars">Cars</a>
+                            <h:link value="Car" outcome="createCar"/>
                         </li>
                         <li class="page-scroll">
-                            <a href="#clients">Clients</a>
+                            <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
                             <a href="#sales">Sales</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#logout">Logout</a>
+                            <h:form>
+                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                            </h:form>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +152,7 @@
                 </div>
             </div>
         </h:form>
-        
+
         <!-- Start data table -->
 
         <div id="table-content">
@@ -163,9 +172,9 @@
                                 <h:form id="implace-form" >
                                     <p:inplace id="ajax" editor="true">
                                         <p:ajax event="save"/>
-                                            <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createClientBean.updateClient}">
-                                                <f:attribute name="idClient" value="#{row.clientId}" />
-                                            </p:inputText>
+                                        <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createClientBean.updateClient}">
+                                            <f:attribute name="idClient" value="#{row.clientId}" />
+                                        </p:inputText>
                                     </p:inplace>
                                 </h:form>
                             </td>
@@ -182,7 +191,7 @@
             </table>
         </div>
 
-        
+
         <!-- End data table -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
