@@ -127,7 +127,9 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Username</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createUserBean.username}" class="input-xlarge" />
+                                        <p:inputText value="#{createUserBean.username}" required="true" class="input-xlarge" >
+                                            <f:validateLength minimum="5" maximum="25"/>
+                                        </p:inputText>
                                         <p class="help-block">Username can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
@@ -136,7 +138,9 @@
                                     <!-- Password-->
                                     <label class="control-label" for="password">Password</label>
                                     <div class="controls">
-                                        <p:password value="#{createUserBean.password}" class="input-xlarge"/>
+                                        <p:password value="#{createUserBean.password}" required="true" class="input-xlarge">
+                                            <f:validateLength minimum="5" maximum="25"/>
+                                        </p:password>
                                         <p class="help-block">Password should be at least 4 characters</p>
                                     </div>
                                 </div>
@@ -145,7 +149,7 @@
                                     <!-- Type (Administrator, seller or employee)-->
                                     <label class="control-label" for="type">Type</label>
                                     <div class="controls">
-                                        <p:selectOneRadio id="type" value="#{createUserBean.type}" class="radio">
+                                        <p:selectOneRadio id="type" value="#{createUserBean.type}" required="true" class="radio">
                                             <f:selectItem itemLabel="Administrator" itemValue="ADMIN"  />
                                             <f:selectItem itemLabel="Employee" itemValue="EMPLOYEE" />
                                             <f:selectItem itemLabel="Seller" itemValue="SELLER" />
@@ -172,7 +176,6 @@
                     <tr>
                         <th>Id</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>Role</th>
                         <th>Delete</th>
                     </tr>
@@ -187,16 +190,7 @@
                                         <p:ajax event="save"/>
                                         <p:inputText value="#{cell.getUsername().username}" required="true" label="text" valueChangeListener="#{createUserBean.updateUserUsername}">
                                             <f:attribute name="idUser" value="#{row.userId}" />
-                                        </p:inputText>
-                                    </p:inplace>
-                                </h:form>
-                            </td>
-                            <td>
-                                <h:form id="implace-form-password" >
-                                    <p:inplace id="ajax-password" editor="true">
-                                        <p:ajax event="save"/>
-                                        <p:inputText value="#{cell.getUsername().password}" required="true" label="text" valueChangeListener="#{createUserBean.updateUserPassword}">
-                                            <f:attribute name="idUser" value="#{row.userId}" />
+                                            <f:validateLength minimum="5" maximum="25"/>
                                         </p:inputText>
                                     </p:inplace>
                                 </h:form>
