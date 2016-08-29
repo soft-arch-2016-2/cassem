@@ -50,6 +50,11 @@ public class CarHasPart implements Serializable {
     public CarHasPart(Integer carHasPartId) {
         this.carHasPartId = carHasPartId;
     }
+    
+    public CarHasPart( Car carId, Part partId ) {
+        this.carId = carId;
+        this.partId = partId;
+    }
 
     public Integer getCarHasPartId() {
         return carHasPartId;

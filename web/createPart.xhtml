@@ -18,9 +18,10 @@
 
         <!-- Theme CSS -->
         <link href="css/freelancer.min.css" rel="stylesheet"/>
-
+        
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
+        
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -39,7 +40,7 @@
     <h:body id="page-top" class="index">
 
         <!-- Navigation -->
-        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header page-scroll">
@@ -80,13 +81,13 @@
             <!-- /.container-fluid -->
         </nav>
 
-        <!-- Full page -->
+        <!-- Page content starts here -->
         <div id="page-content">
 
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createUserBean.message}" escape="false" />
+                    <h:outputText value="#{createPartBean.message}" escape="false" />
                 </div>
             </div>
 
@@ -96,7 +97,7 @@
                     <!-- Button trigger modal create user -->
                     <div class="text-center col-md-6 col-md-offset-3 container">
                         <div class="row">
-                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-add-user">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-create-part">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
                             </button> 
                         </div>
@@ -107,45 +108,68 @@
             <!-- End page content -->
 
         </div>
-
-        <!-- Modal create user -->
+        
+        <!-- Modal create part -->
         <h:form class="form-horizontal">
-            <div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade" id="modal-create-part" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Create</h4>
+                            <h4 class="modal-title" id="myModalLabel">Create part</h4>
                         </div>
                         <div class="modal-body">
                             <fieldset>
                                 <div class="control-group">
                                     <!-- Username -->
-                                    <label class="control-label"  for="username">Username</label>
+                                    <label class="control-label"  for="username">Name</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createUserBean.username}" class="input-xlarge" />
-                                        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                                        <p:inputText value="#{createPartBean.name}" class="input-xlarge" />
+                                        <p class="help-block">Name can contain any letters or numbers, without spaces</p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">stock</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createPartBean.stock}" class="input-xlarge" />
+                                        <p class="help-block">stock can contain only one number without spaces</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">maxStock</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createPartBean.maxStock}" class="input-xlarge" />
+                                        <p class="help-block">maxStock can contain only one number without spaces</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Provider</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createPartBean.provider}" class="input-xlarge" />
+                                        <p class="help-block">Provider can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <!-- Password-->
-                                    <label class="control-label" for="password">Password</label>
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Price</label>
                                     <div class="controls">
-                                        <p:password value="#{createUserBean.password}" class="input-xlarge"/>
-                                        <p class="help-block">Password should be at least 4 characters</p>
+                                        <p:inputText value="#{createPartBean.price}" class="input-xlarge" />
+                                        <p class="help-block">price can contain only one number without spaces</p>
                                     </div>
                                 </div>
-
+                                
                                 <div class="control-group">
-                                    <!-- Type (Administrator, seller or employee)-->
-                                    <label class="control-label" for="type">Type</label>
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Category</label>
                                     <div class="controls">
-                                        <p:selectOneRadio id="type" value="#{createUserBean.type}" class="radio">
-                                            <f:selectItem itemLabel="Administrator" itemValue="ADMIN"  />
-                                            <f:selectItem itemLabel="Employee" itemValue="EMPLOYEE" />
-                                            <f:selectItem itemLabel="Seller" itemValue="SELLER" />
-                                        </p:selectOneRadio>
+                                        <p:inputText value="#{createPartBean.category}" class="input-xlarge" />
+                                        <p class="help-block">Category can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
                             </fieldset>
@@ -153,13 +177,17 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <h:commandButton action="#{createUserBean.createUser()}" value="Create" class="btn btn-primary"/>
+                            <h:commandButton action="#{createPartBean.createPart()}" value="Create" class="btn btn-primary"/>
                         </div>
                     </div>
                 </div>
             </div>
         </h:form>
 
+        
+        
+        
+        <!-- End page content -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
