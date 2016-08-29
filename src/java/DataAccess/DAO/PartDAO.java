@@ -6,6 +6,7 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Part;
+import DataAccess.Entity.Part;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -49,4 +50,45 @@ public class PartDAO {
 
         return parts;
     }
+    
+    public Part delete(Part part){
+        
+        EntityManager em = emf1.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+            em.remove(em.merge(part));
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            part = null;
+        } finally {
+            em.close();
+        }
+        return part;  
+    }
+    
+    
+    public Part update(Part oldPart, Part newPart){
+        
+        EntityManager em = emf1.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+            
+            oldPart.setName(newPart.getName());
+            em.merge(oldPart);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            oldPart = null;
+        } finally {
+            em.close();
+        }
+        return oldPart;  
+    }
+    
 }

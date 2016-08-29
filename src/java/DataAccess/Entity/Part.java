@@ -95,6 +95,15 @@ public class Part implements Serializable {
         this.price = price;
         this.category = category;
     }
+    
+    public Part ( Part other ){
+        this.name = other.name;
+        this.stock = other.stock;
+        this.maxStock = other.maxStock;
+        this.provider = other.provider;
+        this.price = other.price;
+        this.category = other.category;
+    }
 
     public Integer getPartId() {
         return partId;

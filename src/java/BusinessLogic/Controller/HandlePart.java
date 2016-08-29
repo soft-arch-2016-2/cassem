@@ -6,10 +6,10 @@
 package BusinessLogic.Controller;
 
 import DataAccess.DAO.PartDAO;
+
 import DataAccess.Entity.Part;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Query;
+
 
 public class HandlePart {
     
@@ -27,10 +27,39 @@ public class HandlePart {
         return response;
     }
     
+    public String deletePart( Part part ){
+        
+        String response = "Part has not been removed";
+        
+        PartDAO partDAO = new PartDAO();
+        
+        if(partDAO.delete(part) != null){
+            response = "Part has been removed succesfully";
+        }
+        
+        return response;
+        
+    }
+    
     public List<Part> getAllParts(){
         PartDAO partDAO = new PartDAO();
         List<Part> dataList = partDAO.listAllParts();
         return dataList;
+    }
+    
+    
+    public String updatePart(Part oldPart, Part newPart){
+        
+        String response = "Part has not been updated";
+        
+        PartDAO partDAO = new PartDAO();
+        
+        if(partDAO.update(oldPart, newPart) != null){
+            response = "Part has been updated succesfully";
+        }
+        
+        return response;
+        
     }
     
 }

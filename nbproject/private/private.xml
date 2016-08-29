@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/web/createClient.xhtml</file>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/src/java/DataAccess/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/src/java/BusinessLogic/Controller/HandleClient.java</file>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/src/java/DataAccess/Entity/Client.java</file>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/src/java/Presentation/Bean/CreateClientBean.java</file>
-            <file>file:/C:/Users/Maikol/Documents/NetBeansProjects/cassem/src/java/DataAccess/DAO/ClientDAO.java</file>
+            <file>file:/D:/Arquitectura/cassem/web/createClient.xhtml</file>
+            <file>file:/D:/Arquitectura/cassem/web/createPart.xhtml</file>
         </group>
     </open-files>
 </project-private>
