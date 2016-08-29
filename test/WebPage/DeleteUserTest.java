@@ -34,11 +34,11 @@ public class DeleteUserTest {
     driver.findElement(By.id("j_idt9:j_idt13")).sendKeys("tulio85304");
     driver.findElement(By.name("j_idt9:j_idt15")).click();
     driver.get("http://localhost:8080/cassem/faces/createUser.xhtml");
-    driver.findElement(By.name("j_idt28:3:j_idt30:0:j_idt34:j_idt35")).click();
-    driver.findElement(By.name("j_idt28:3:j_idt30:0:j_idt34:j_idt35")).click();
-    driver.findElement(By.name("j_idt28:3:j_idt30:0:j_idt34:j_idt35")).click();
-    driver.findElement(By.name("j_idt28:3:j_idt30:0:j_idt34:j_idt35")).click();
-    driver.findElement(By.name("j_idt28:3:j_idt30:0:j_idt34:j_idt35")).click();
+    driver.findElement(By.name("j_idt31:3:j_idt33:0:j_idt37:j_idt38")).click();
+    driver.findElement(By.name("j_idt31:3:j_idt33:0:j_idt37:j_idt38")).click();
+    driver.findElement(By.name("j_idt31:3:j_idt33:0:j_idt37:j_idt38")).click();
+    driver.findElement(By.name("j_idt31:3:j_idt33:0:j_idt37:j_idt38")).click();
+    driver.findElement(By.name("j_idt31:3:j_idt33:0:j_idt37:j_idt38")).click();
   }
 
   @After
