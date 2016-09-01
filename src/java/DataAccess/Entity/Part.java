@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,10 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm17-toshiba
+ * @author Fabian
  */
 @Entity
-@Table(name = "part")
+@Table(catalog = "dbcassem", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Part.findAll", query = "SELECT p FROM Part p"),
@@ -45,36 +46,37 @@ public class Part implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "part_id")
+    @Column(name = "part_id", nullable = false)
     private Integer partId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "name")
+    @Column(nullable = false, length = 100)
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "stock")
+    @Column(nullable = false)
     private int stock;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "max_stock")
-    private String maxStock;
+    @Column(name = "max_stock", nullable = false)
+    private int maxStock;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "provider")
+    @Column(nullable = false, length = 100)
     private String provider;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "price")
+    @Column(nullable = false)
     private double price;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "category")
+    @Column(nullable = false, length = 100)
     private String category;
+    @Lob
+    private byte[] image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partId")
     private Collection<CarHasPart> carHasPartCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partId")
@@ -87,7 +89,7 @@ public class Part implements Serializable {
         this.partId = partId;
     }
 
-    public Part(String name, int stock, String maxStock, String provider, double price, String category) {
+    public Part(String name, int stock, int maxStock, String provider, double price, String category) {
         this.name = name;
         this.stock = stock;
         this.maxStock = maxStock;
@@ -96,6 +98,7 @@ public class Part implements Serializable {
         this.category = category;
     }
     
+    
     public Part ( Part other ){
         this.name = other.name;
         this.stock = other.stock;
@@ -103,6 +106,18 @@ public class Part implements Serializable {
         this.provider = other.provider;
         this.price = other.price;
         this.category = other.category;
+    }
+
+
+    
+    public Part(Integer partId, String name, int stock, int maxStock, String provider, double price, String category) {
+        this.partId = partId;
+        this.name = name;
+        this.stock = stock;
+        this.maxStock = maxStock;
+        this.provider = provider;
+        this.price = price;
+        this.category = category;
     }
 
     public Integer getPartId() {
@@ -129,11 +144,11 @@ public class Part implements Serializable {
         this.stock = stock;
     }
 
-    public String getMaxStock() {
+    public int getMaxStock() {
         return maxStock;
     }
 
-    public void setMaxStock(String maxStock) {
+    public void setMaxStock(int maxStock) {
         this.maxStock = maxStock;
     }
 
@@ -159,6 +174,14 @@ public class Part implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @XmlTransient

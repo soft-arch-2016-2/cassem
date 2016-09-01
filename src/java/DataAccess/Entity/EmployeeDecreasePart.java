@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author fabianlm17-toshiba
+ * @author Fabian
  */
 @Entity
-@Table(name = "employee_decrease_part")
+@Table(name = "employee_decrease_part", catalog = "dbcassem", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EmployeeDecreasePart.findAll", query = "SELECT e FROM EmployeeDecreasePart e"),
@@ -37,18 +37,18 @@ public class EmployeeDecreasePart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "decrease_id")
+    @Column(name = "decrease_id", nullable = false)
     private Integer decreaseId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "amount")
+    @Column(nullable = false)
     private int amount;
-    @JoinColumn(name = "part_id", referencedColumnName = "part_id")
-    @ManyToOne(optional = false)
-    private Part partId;
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     @ManyToOne(optional = false)
     private User userId;
+    @JoinColumn(name = "part_id", referencedColumnName = "part_id", nullable = false)
+    @ManyToOne(optional = false)
+    private Part partId;
 
     public EmployeeDecreasePart() {
     }
@@ -78,20 +78,20 @@ public class EmployeeDecreasePart implements Serializable {
         this.amount = amount;
     }
 
-    public Part getPartId() {
-        return partId;
-    }
-
-    public void setPartId(Part partId) {
-        this.partId = partId;
-    }
-
     public User getUserId() {
         return userId;
     }
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public Part getPartId() {
+        return partId;
+    }
+
+    public void setPartId(Part partId) {
+        this.partId = partId;
     }
 
     @Override

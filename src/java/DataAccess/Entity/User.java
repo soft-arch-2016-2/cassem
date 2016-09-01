@@ -27,34 +27,37 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm17-toshiba
+ * @author Fabian
  */
 @Entity
-@Table(name = "user")
+@Table(catalog = "dbcassem", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
-    @NamedQuery(name = "User.findRoleByUsername", query = "SELECT u.role FROM User u WHERE u.username.username = :username")})
+@NamedQuery(name = "User.findRoleByUsername", query = "SELECT u.role FROM User u WHERE u.username.username = :username")
+
+
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Integer userId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "role")
+    @Column(nullable = false, length = 100)
     private String role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Sale> saleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<EmployeeDecreasePart> employeeDecreasePartCollection;
-    @JoinColumn(name = "username", referencedColumnName = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     @ManyToOne(optional = false)
     private Auth username;
 

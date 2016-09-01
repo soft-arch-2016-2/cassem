@@ -28,7 +28,7 @@ public class CreatePartBean implements Serializable {
 
     private String name;
     private int stock;
-    private String maxStock;
+    private int maxStock;
     private String provider;
     private String price;
     private String category;
@@ -56,11 +56,11 @@ public class CreatePartBean implements Serializable {
         this.stock = stock;
     }
 
-    public String getMaxStock() {
+    public int getMaxStock() {
         return maxStock;
     }
 
-    public void setMaxStock(String maxStock) {
+    public void setMaxStock(int maxStock) {
         this.maxStock = maxStock;
     }
 
@@ -127,28 +127,14 @@ public class CreatePartBean implements Serializable {
         return true;
     }
 
-    public boolean isValidString(String s) {
-        return s != null || !s.equals("");
-    }
 
-    public boolean validate(String name, int stock, String maxStock, String provider, String price, String category) {
-        if (!isNumber(name)) {
-            message = Util.buildAlert(false, "Error", "Invalid number value");
-            return false;
-        }
-        if (!isValidString(name) || !isValidString(provider) || !isValidString(category)) {
-            message = Util.buildAlert(false, "Error", "String value is null or empty");
-            return false;
-        }
-        return true;
-    }
+
 
     public void createPart() {
         HandlePart HandlePart = new HandlePart();
-        if (validate(name, stock, maxStock, provider, price, category)) {
-            message = HandlePart.createPart(name, stock, maxStock, provider, Float.parseFloat(price), category);
-            message = Util.buildSuccess("Correct", message);
-        }
+        message = HandlePart.createPart(name, stock, maxStock, provider, Float.parseFloat(price), category);
+        message = Util.buildSuccess("Correct", message);
+        
     }
 
     public void deletePart(Part part) {

@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm17-toshiba
+ * @author Fabian
  */
 @Entity
-@Table(name = "sale")
+@Table(catalog = "dbcassem", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sale.findAll", query = "SELECT s FROM Sale s"),
@@ -44,21 +44,21 @@ public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sale_id")
+    @Column(name = "sale_id", nullable = false)
     private Integer saleId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "date")
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id", nullable = false)
     @ManyToOne(optional = false)
     private Client clientId;
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     @ManyToOne(optional = false)
     private User userId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "saleId")
-    private Collection<SaleHasCar> saleHasCarCollection;
+    private Collection<Orders> ordersCollection;
 
     public Sale() {
     }
@@ -105,12 +105,12 @@ public class Sale implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SaleHasCar> getSaleHasCarCollection() {
-        return saleHasCarCollection;
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
     }
 
-    public void setSaleHasCarCollection(Collection<SaleHasCar> saleHasCarCollection) {
-        this.saleHasCarCollection = saleHasCarCollection;
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
     }
 
     @Override

@@ -25,40 +25,37 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm17-toshiba
+ * @author Fabian
  */
 @Entity
-@Table(name = "car")
+@Table(catalog = "dbcassem", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Car.findAll", query = "SELECT c FROM Car c"),
     @NamedQuery(name = "Car.findByCarId", query = "SELECT c FROM Car c WHERE c.carId = :carId"),
     @NamedQuery(name = "Car.findByName", query = "SELECT c FROM Car c WHERE c.name = :name"),
-    @NamedQuery(name = "Car.findByPrice", query = "SELECT c FROM Car c WHERE c.price = :price")}
-
-
-)
+    @NamedQuery(name = "Car.findByPrice", query = "SELECT c FROM Car c WHERE c.price = :price")})
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "car_id")
+    @Column(name = "car_id", nullable = false)
     private Integer carId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "name")
+    @Column(nullable = false, length = 100)
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "price")
+    @Column(nullable = false)
     private long price;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
     private Collection<CarHasPart> carHasPartCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
-    private Collection<SaleHasCar> saleHasCarCollection;
+    private Collection<Orders> ordersCollection;
 
     public Car() {
     }
@@ -66,8 +63,15 @@ public class Car implements Serializable {
     public Car(Integer carId) {
         this.carId = carId;
     }
-
+    
     public Car(String name, long price) {
+        this.name = name;
+        this.price = price;
+    }
+
+
+    public Car(Integer carId, String name, long price) {
+        this.carId = carId;
         this.name = name;
         this.price = price;
     }
@@ -106,12 +110,12 @@ public class Car implements Serializable {
     }
 
     @XmlTransient
-    public Collection<SaleHasCar> getSaleHasCarCollection() {
-        return saleHasCarCollection;
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
     }
 
-    public void setSaleHasCarCollection(Collection<SaleHasCar> saleHasCarCollection) {
-        this.saleHasCarCollection = saleHasCarCollection;
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
     }
 
     @Override

@@ -13,25 +13,11 @@ import java.util.List;
 
 public class HandlePart {
     
-    
-    private boolean isNull( String value ){
-        return false;
-    }
-
-    private String validate( int stock, String maxStock){
-        if( stock > Integer.parseInt(maxStock) ){
-            return "The Stock can't be greater than MaxStock";
-        }
-        return "";
-    }
-    public String createPart(String nombre, int stock, String maxStock, String provider, float price,
+ 
+    public String createPart(String nombre, int stock, int maxStock, String provider, float price,
             String category){
         String response = "Part has not been created";
         
-        String value = validate(stock, maxStock);
-        if(value.equals("")){
-            return value;
-        }
         
         Part part = new Part(nombre, stock, maxStock, provider, price, category);
         PartDAO partDAO = new PartDAO();

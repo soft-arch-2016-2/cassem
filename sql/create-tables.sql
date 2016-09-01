@@ -1,3 +1,19 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema dbcassem
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema dbcassem
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `dbcassem` DEFAULT CHARACTER SET utf8 ;
+USE `dbcassem` ;
+
 -- -----------------------------------------------------
 -- Table `dbcassem`.`car`
 -- -----------------------------------------------------
@@ -16,10 +32,11 @@ CREATE TABLE IF NOT EXISTS `dbcassem`.`part` (
   `part_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `stock` INT NOT NULL,
-  `max_stock` VARCHAR(45) NOT NULL,
+  `max_stock` INT NOT NULL,
   `provider` VARCHAR(100) NOT NULL,
   `price` REAL NOT NULL,
   `category` VARCHAR(100) NOT NULL,
+  `image` BLOB NULL,
   PRIMARY KEY (`part_id`))
 ENGINE = InnoDB;
 
@@ -109,13 +126,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dbcassem`.`sale_has_car`
+-- Table `dbcassem`.`orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbcassem`.`sale_has_car` (
+CREATE TABLE IF NOT EXISTS `dbcassem`.`orders` (
   `individual_sale_id` INT NOT NULL AUTO_INCREMENT,
   `car_id` INT NOT NULL,
   `sale_id` INT NOT NULL,
   `amount` INT NOT NULL,
+  `assembled` INT NOT NULL,
   PRIMARY KEY (`individual_sale_id`),
   INDEX `fk_individual_sale_car1_idx` (`car_id` ASC),
   INDEX `fk_individual_sale_sale1_idx` (`sale_id` ASC),
@@ -154,3 +172,8 @@ CREATE TABLE IF NOT EXISTS `dbcassem`.`employee_decrease_part` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
