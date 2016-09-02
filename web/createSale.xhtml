@@ -1,0 +1,207 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title>Cassem</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Theme CSS -->
+        <link href="css/freelancer.min.css" rel="stylesheet"/>
+
+        <!-- Base CSS-->
+        <link href="css/base.css" rel="stylesheet"/>
+
+        <!-- Table CSS-->
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
+
+
+        <!-- Custom Fonts -->
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isLogged()}" />
+
+        <f:event type="preRenderView"
+                 listener="#{userSessionBean.isCorrectRole()}" />
+
+    </h:head>
+
+    <h:body id="page-top" class="index">
+
+        <!-- Navigation -->
+        <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="#page-top">Cassem</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Users" outcome="createUser" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Parts" outcome="createPart"/>
+
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Car" outcome="createCar"/>
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Clients" outcome="createClient" />
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#sales">Sales</a>
+                        </li>
+                        <li class="page-scroll">
+                            <h:form>
+                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
+        <!-- Full page -->
+        <div id="page-content">
+
+            <!-- Notification bar -->
+            <div id="notification-bar" class="container">
+                <div class="row">
+                    <h:outputText value="#{createSaleBean.message}" escape="false" />
+                </div>
+            </div>
+
+            <!-- Page content starts here -->
+            <div class="container">
+                <div class="row">
+                    <!-- Button trigger modal create user -->
+                    <div class="text-center col-md-6 col-md-offset-3 container">
+                        <div class="row">
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-add-sale">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
+                            </button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End page content -->
+
+        </div>
+
+        <!-- Modal create sale -->
+        <h:form class="form-horizontal">
+            <div class="modal fade" id="modal-add-sale" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Create</h4>
+                        </div>
+                        <div class="modal-body">
+                            <fieldset>
+                                <div class="control-group">
+                                    <!-- name -->
+                                    <label class="control-label"  for="name">Complete Name</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createSaleBean.name}" class="input-xlarge" />
+                                        <p class="help-block">Complete Name</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <h:commandButton action="#{createSaleBean.createSale()}" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <!-- Start data table -->
+
+        <div id="table-content">
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <ui:repeat value="#{createSaleBean.allSales}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td> #{cell.getSaleId()} </td>
+                            <td>
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createSaleBean.updateSale}">
+                                            <f:attribute name="idSale" value="#{row.saleId}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton action="#{createSaleBean.deleteSale( row )}" value="Delete" class="btn btn-danger">
+                                        <!--<span class="glyphicon glyphicon-trash"/>-->
+                                    </h:commandButton> 
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </div>
+
+
+        <!-- End data table -->
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Theme JavaScript -->
+        <script src="js/freelancer.min.js"></script>
+
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/base.js"></script>
+
+    </h:body>
+</html>
