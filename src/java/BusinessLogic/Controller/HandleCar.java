@@ -7,6 +7,7 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.CarDAO;
 import DataAccess.DAO.CarHasPartDAO;
+import DataAccess.DAO.PartDAO;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.Part;
@@ -39,6 +40,13 @@ public class HandleCar {
             }     
         }
         return response;
+    }
+    
+    
+    public List<Car> getAllCars(){
+        CarDAO carDAO = new CarDAO();
+        List<Car> dataList = carDAO.listAllCars();
+        return dataList;
     }
     
     

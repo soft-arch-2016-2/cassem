@@ -12,7 +12,6 @@
         <meta name="description" content=""/>
         <meta name="author" content=""/>
 
-        
         <title>Cassem</title>
 
         <!-- Bootstrap Core CSS -->
@@ -94,67 +93,10 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        
 
         <!-- Full page -->
         <div id="page-content">
-            <h3 align="center">Create Sale</h3>
-            <br></br>
-            <h:form>
-    
-            <div class="container-fluid">
-                <div class="row">
-                        <div class="col-lg-4">
 
-                        </div>
-                        <div class="col-lg-8">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Clients</h3>
-                                </div>
-                                
-                                <p:autoComplete  id="dd" dropdown="true" value="#{createSaleBean.xd}" completeMethod="#{createSaleBean.completeText}"  >
-                                </p:autoComplete>
-                        </div>
-
-                </div>
-                <br></br>
-                
-                <div  class="row">
-                    
-                    <div class="col-lg-4">
-
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="panel-heading">
-                            <h3 class="panel-title "> Avaliable cars</h3>
-                        </div>
-                        <!--<p:growl id="msg" showDetail="true" escape="false" />-->
-                        <p:pickList id="pickList" value="#{createSaleBean.dualList}" var="car" itemLabel="" itemValue="" 
-                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
-
-                                    >
-                           
-                                <p:column style="float: left">
-                                    #{car.name}
-                                </p:column>
-                                
-                            
-                                
-                            
-               
-                        </p:pickList>
-                    </div>
-                </div>
-            </div>        
-
-        </h:form>
-            
-            
-            
-            
-            
-            
-            
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
@@ -162,11 +104,63 @@
                 </div>
             </div>
 
+            <!-- Page content starts here -->
+            <div class="container">
+                <div class="row">
+                    <!-- Button trigger modal create user -->
+                    <div class="text-center col-md-6 col-md-offset-3 container">
+                        <div class="row">
+                            <!--<h:commandButton action="" value="createSale" class="btn btn-primary" />-->
+                            <h:button  value="+ Create" class="btn btn-default btn-lg" outcome="createSale"></h:button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- End page content -->
 
         </div>
 
-        
+
+        <!-- Start data table -->
+
+        <div id="table-content">
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <ui:repeat value="#{createSaleBean.allSales}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td> #{cell.getSaleId()} </td>
+                            <td>
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createSaleBean.updateSale}">
+                                            <f:attribute name="idSale" value="#{row.saleId}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton action="#{createSaleBean.deleteSale( row )}" value="Delete" class="btn btn-danger">
+                                        <!--<span class="glyphicon glyphicon-trash"/>-->
+                                    </h:commandButton> 
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </div>
+
+
         <!-- End data table -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -174,7 +168,7 @@
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
 
-        <script src="js/jquery-3.1.0.min"></script>
+        <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/base.js"></script>
 
