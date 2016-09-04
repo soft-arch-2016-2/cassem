@@ -112,7 +112,60 @@
                 <div class="row">
                     <p:chart type="line" model="#{statisticsEDPBean.modelEDP}" style="height:300px;"/>
                 </div>
+                <div class="row">
+                    <h2>Most part used</h2>
+                    <!-- Start data table most part used-->
 
+                    <div  class="row">
+                        <table id="" class="display" cellspacing="0" width="100%"> 
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Amount used</th>
+                                </tr>
+                            </thead>
+                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
+                                <tr>
+                                    <ui:repeat value="#{row}" var="cell">
+                                        <td> #{cell.part.partId} </td>
+                                        <td> #{cell.part.name} </td>
+                                        <td> #{cell.amount} </td>
+                                    </ui:repeat>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </div>
+                    <!-- End data table most part used-->
+                </div>
+                <div class="row">
+                    <h2>Stock</h2>
+                    <!-- Start data table stock-->
+
+                    <div  class="row">
+                        <table id="" class="display" cellspacing="0" width="100%"> 
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Amount used</th>
+                                    <th>Max stock</th>
+                                </tr>
+                            </thead>
+                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
+                                <tr>
+                                    <ui:repeat value="#{row}" var="cell">
+                                        <td> #{cell.part.partId} </td>
+                                        <td> #{cell.part.name} </td>
+                                        <td> #{cell.part.stock} </td>
+                                        <td> #{cell.part.maxStock} </td>
+                                    </ui:repeat>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </div>
+                    <!-- End data table stock-->
+                </div>
             </div>
 
             <!-- End page content -->
