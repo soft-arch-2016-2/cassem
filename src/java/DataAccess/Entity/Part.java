@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Fabian
+ * @author fabianlm18
  */
 @Entity
-@Table(catalog = "dbcassem", schema = "")
+@Table(name = "part")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Part.findAll", query = "SELECT p FROM Part p"),
@@ -46,36 +46,37 @@ public class Part implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "part_id", nullable = false)
+    @Column(name = "part_id")
     private Integer partId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "stock")
     private int stock;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "max_stock", nullable = false)
+    @Column(name = "max_stock")
     private int maxStock;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "provider")
     private String provider;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "price")
     private double price;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "category")
     private String category;
     @Lob
+    @Column(name = "image")
     private byte[] image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partId")
     private Collection<CarHasPart> carHasPartCollection;
@@ -89,6 +90,16 @@ public class Part implements Serializable {
         this.partId = partId;
     }
 
+    public Part(Integer partId, String name, int stock, int maxStock, String provider, double price, String category) {
+        this.partId = partId;
+        this.name = name;
+        this.stock = stock;
+        this.maxStock = maxStock;
+        this.provider = provider;
+        this.price = price;
+        this.category = category;
+    }
+    
     public Part(String name, int stock, int maxStock, String provider, double price, String category) {
         this.name = name;
         this.stock = stock;
@@ -98,7 +109,6 @@ public class Part implements Serializable {
         this.category = category;
     }
     
-    
     public Part ( Part other ){
         this.name = other.name;
         this.stock = other.stock;
@@ -106,18 +116,6 @@ public class Part implements Serializable {
         this.provider = other.provider;
         this.price = other.price;
         this.category = other.category;
-    }
-
-
-    
-    public Part(Integer partId, String name, int stock, int maxStock, String provider, double price, String category) {
-        this.partId = partId;
-        this.name = name;
-        this.stock = stock;
-        this.maxStock = maxStock;
-        this.provider = provider;
-        this.price = price;
-        this.category = category;
     }
 
     public Integer getPartId() {

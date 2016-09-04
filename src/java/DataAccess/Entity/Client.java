@@ -25,10 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Fabian
+ * @author fabianlm18
  */
 @Entity
-@Table(catalog = "dbcassem", schema = "")
+@Table(name = "client")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
@@ -40,12 +40,12 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "client_id", nullable = false)
+    @Column(name = "client_id")
     private Integer clientId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
     private Collection<Sale> saleCollection;

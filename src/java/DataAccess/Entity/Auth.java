@@ -23,10 +23,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Fabian
+ * @author fabianlm18
  */
 @Entity
-@Table(catalog = "dbcassem", schema = "")
+@Table(name = "auth")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Auth.findAll", query = "SELECT a FROM Auth a"),
@@ -40,12 +40,12 @@ public class Auth implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
-    @Column(nullable = false, length = 25)
+    @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
-    @Column(nullable = false, length = 25)
+    @Column(name = "password")
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
     private Collection<User> userCollection;

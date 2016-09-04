@@ -22,10 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Fabian
+ * @author fabianlm18
  */
 @Entity
-@Table(catalog = "dbcassem", schema = "")
+@Table(name = "orders")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
@@ -38,20 +38,20 @@ public class Orders implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "individual_sale_id", nullable = false)
+    @Column(name = "individual_sale_id")
     private Integer individualSaleId;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "amount")
     private int amount;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "assembled")
     private int assembled;
-    @JoinColumn(name = "car_id", referencedColumnName = "car_id", nullable = false)
+    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     @ManyToOne(optional = false)
     private Car carId;
-    @JoinColumn(name = "sale_id", referencedColumnName = "sale_id", nullable = false)
+    @JoinColumn(name = "sale_id", referencedColumnName = "sale_id")
     @ManyToOne(optional = false)
     private Sale saleId;
 
