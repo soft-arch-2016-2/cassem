@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Fabian
+ * @author fabianlm18
  */
 @Entity
-@Table(name = "car_has_part", catalog = "dbcassem", schema = "")
+@Table(name = "car_has_part")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CarHasPart.findAll", query = "SELECT c FROM CarHasPart c"),
@@ -35,12 +35,12 @@ public class CarHasPart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "car_has_part_id", nullable = false)
+    @Column(name = "car_has_part_id")
     private Integer carHasPartId;
-    @JoinColumn(name = "car_id", referencedColumnName = "car_id", nullable = false)
+    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     @ManyToOne(optional = false)
     private Car carId;
-    @JoinColumn(name = "part_id", referencedColumnName = "part_id", nullable = false)
+    @JoinColumn(name = "part_id", referencedColumnName = "part_id")
     @ManyToOne(optional = false)
     private Part partId;
 
@@ -50,13 +50,12 @@ public class CarHasPart implements Serializable {
     public CarHasPart(Integer carHasPartId) {
         this.carHasPartId = carHasPartId;
     }
-
+    
     public CarHasPart( Car carId, Part partId ) {
         this.carId = carId;
         this.partId = partId;
     }
 
-    
     public Integer getCarHasPartId() {
         return carHasPartId;
     }

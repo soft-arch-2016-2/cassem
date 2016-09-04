@@ -212,5 +212,5 @@ INSERT INTO `dbcassem`.`auth` (`username`, `password`) VALUES ('juazegarra', 'ca
 INSERT INTO `dbcassem`.`user` (`role`, `username`) VALUES ('SELLER', 'juazegarra');
 INSERT INTO `dbcassem`.`auth` (`username`, `password`) VALUES ('hilzu', 'mariela51243');
 INSERT INTO `dbcassem`.`user` (`role`, `username`) VALUES ('SELLER', 'hilzu');
-INSERT INTO `dbcassem`.`auth` (`username`, `password`) VALUES ('fdconejop', '1234');
+INSERT INTO `dbcassem`.`auth` (`username`, `password`) VALUES ('fdconejop', '12345');
 INSERT INTO `dbcassem`.`user` (`role`, `username`) VALUES ('ADMIN', 'fdconejop');
