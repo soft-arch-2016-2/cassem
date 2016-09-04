@@ -89,13 +89,14 @@ public class Part implements Serializable {
         this.partId = partId;
     }
 
-    public Part(String name, int stock, int maxStock, String provider, double price, String category) {
+    public Part(String name, int stock, int maxStock, String provider, double price, String category, byte[] byteArray) {
         this.name = name;
         this.stock = stock;
         this.maxStock = maxStock;
         this.provider = provider;
         this.price = price;
         this.category = category;
+        this.image = byteArray;
     }
     
     

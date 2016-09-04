@@ -8,6 +8,7 @@ package BusinessLogic.Controller;
 import DataAccess.DAO.PartDAO;
 
 import DataAccess.Entity.Part;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -15,11 +16,11 @@ public class HandlePart {
     
  
     public String createPart(String nombre, int stock, int maxStock, String provider, float price,
-            String category){
+            String category, byte byteArray[]){
         String response = "Part has not been created";
         
         
-        Part part = new Part(nombre, stock, maxStock, provider, price, category);
+        Part part = new Part(nombre, stock, maxStock, provider, price, category,byteArray);
         PartDAO partDAO = new PartDAO();
         Part partE = partDAO.persist(part);
         if(partE!=null){

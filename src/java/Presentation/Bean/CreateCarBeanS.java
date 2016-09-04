@@ -9,11 +9,20 @@ package Presentation.Bean;
 import BusinessLogic.Controller.HandleCar;
 import BusinessLogic.Controller.HandlePart;
 import DataAccess.Entity.Part;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.sql.rowset.serial.SerialBlob;
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -21,7 +30,7 @@ import org.primefaces.event.DragDropEvent;
  */
 @ManagedBean
 @ViewScoped
-public class CreateCarBeanS {
+public class CreateCarBeanS implements Serializable{
     
     private String name;
     private String message;
@@ -29,11 +38,9 @@ public class CreateCarBeanS {
     private List<Part> partsAdded;
     private List<Part> parts;
     private Part valuePart;
+    private StreamedContent image;
     
-    
-    
-    
-    public CreateCarBeanS(){
+    public CreateCarBeanS() throws SQLException{
         partsAdded = new ArrayList<Part>();
     }
     
@@ -113,6 +120,36 @@ public class CreateCarBeanS {
         Part part = ((Part) ddEvent.getData());
         System.out.println(partsAdded.size());
         partsAdded.add(part);
+    }
+
+    public StreamedContent getImage() {
+        return image;
+    }
+
+    public void setImage(StreamedContent image) {
+        this.image = image;
+    }
+    
+    public void DynamicImageController(){
+        
+    }
+    
+    
+    public StreamedContent getStreamedImageById() throws SQLException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            // So, we're rendering the HTML. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        }else{
+            Blob bild;
+             bild = new SerialBlob(parts.get(0).getImage());
+            InputStream stream = bild.getBinaryStream();
+             return new DefaultStreamedContent(stream);
+        }
+                //}
+            //}
+            
     }
     
 

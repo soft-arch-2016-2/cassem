@@ -123,7 +123,7 @@
         </div>
 
         <!-- Modal create part -->
-        <h:form class="form-horizontal">
+        <h:form class="form-horizontal" enctype="multipart/form-data">
             <div class="modal fade" id="modal-create-part" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -137,7 +137,7 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Name</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createPartBean.name}" class="input-xlarge" />
+                                        <p:inputText value="#{createPartBean.name}" class="input-xlarge" type="text" />
                                         <p class="help-block">Name can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                                     <label class="control-label"  for="username">Price</label>
                                     <div class="controls">
 
-                                        <p:inputText value="#{createPartBean.price}" class="input-xlarge" />
+                                        <p:inputText value="#{createPartBean.price}" class="input-xlarge" type="number"/>
                                         <p class="help-block">price can contain only one number without spaces</p>
                                     </div>
                                 </div>
@@ -187,6 +187,17 @@
                                         <p class="help-block">Category can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
+                                
+                                <!--<h:form enctype="multipart/form-data">-->
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel for="image" value="Select Image: *" />
+                                        <p:fileUpload value="#{createPartBean.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Submit" ajax="false" 
+                                                             actionListener="#{createPartBean.upload()}"/></f:facet>
+                                    </p:panelGrid>
+                                <!--</h:form>-->
+                                
                             </fieldset>
 
                         </div>

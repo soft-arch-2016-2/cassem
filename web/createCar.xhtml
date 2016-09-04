@@ -120,6 +120,9 @@
 
         <!-- Modal create part -->
         <div id="page-content">
+            
+            
+            
 
             <div id="notification-bar" class="container">
                 <div class="row">
@@ -145,7 +148,7 @@
                             <div class="control-group">                   
                                 <label class="control-label"  for="username">Price</label>
                                 <div class="controls">
-                                    <p:inputText value="#{createCarBeanS.price}" class="input-xlarge" />
+                                    <p:spinner value="#{createCarBeanS.price}"/>
                                     <p class="help-block">Price can contain only one number without spaces</p>
                                 </div>
                             </div>
@@ -182,12 +185,7 @@
                                                 <p:column headerText="Price">
                                                     <h:outputText value="#{car.price}" />
                                                 </p:column>
-                                                <!--                                                <p:column headerText="Id">
-                                                                                                    <h:outputText value="Provider" />
-                                                                                                </p:column>
-                                                                                                <p:column headerText="Provider">
-                                                                                                    <h:outputText value="#{car.provider}" />
-                                                                                                </p:column>-->
+                                                
 
                                             </h:panelGrid>
                                         </p:panel>

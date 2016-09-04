@@ -22,6 +22,7 @@ public class HandleCar {
     public String createCar( String name, long price, List<Part> parts){
         String response = "Car has not been created";
         Car car = new Car(name, price);
+        
         CarDAO carDAO = new CarDAO();
         Car carE = carDAO.persist(car);
         if(carE!=null){
