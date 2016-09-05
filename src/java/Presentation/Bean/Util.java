@@ -5,8 +5,6 @@
  */
 package Presentation.Bean;
 
-import java.util.regex.Pattern;
-
 public class Util {
 
     private static final String ALERT_SUCCESS = "success";
@@ -29,10 +27,5 @@ public class Util {
     
     public static String buildDanger(String title, String message) {
         return buildAlert(ALERT_DANGER, title, message);
-    }
-    
-    public static boolean onlyLettersNumbers(String word){
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]+");
-        return pattern.matcher(word).matches();
     }
 }
