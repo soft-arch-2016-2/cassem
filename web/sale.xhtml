@@ -125,39 +125,7 @@
         <!-- Start data table -->
 
         <div id="table-content">
-            <table id="example" class="display" cellspacing="0" width="100%"> 
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <ui:repeat value="#{createSaleBean.allSales}" var="row">
-                    <tr>
-                        <ui:repeat value="#{row}" var="cell">
-                            <td> #{cell.getSaleId()} </td>
-                            <td>
-                                <h:form id="implace-form" >
-                                    <p:inplace id="ajax" editor="true">
-                                        <p:ajax event="save"/>
-                                        <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createSaleBean.updateSale}">
-                                            <f:attribute name="idSale" value="#{row.saleId}" />
-                                        </p:inputText>
-                                    </p:inplace>
-                                </h:form>
-                            </td>
-                            <td>
-                                <h:form>
-                                    <h:commandButton action="#{createSaleBean.deleteSale( row )}" value="Delete" class="btn btn-danger">
-                                        <!--<span class="glyphicon glyphicon-trash"/>-->
-                                    </h:commandButton> 
-                                </h:form>
-                            </td>
-                        </ui:repeat>
-                    </tr>
-                </ui:repeat>
-            </table>
+            
         </div>
 
 

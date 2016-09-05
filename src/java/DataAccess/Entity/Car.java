@@ -56,7 +56,7 @@ public class Car implements Serializable {
     private Collection<CarHasPart> carHasPartCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
     private Collection<Orders> ordersCollection;
-
+    
     public Car() {
     }
 

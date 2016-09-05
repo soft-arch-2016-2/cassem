@@ -12,7 +12,7 @@
         <meta name="description" content=""/>
         <meta name="author" content=""/>
 
-        
+
         <title>Cassem</title>
 
         <!-- Bootstrap Core CSS -->
@@ -85,7 +85,7 @@
                         </li>
                         <li class="page-scroll">
                             <h:form>
-                                <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
+                                <p:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
                             </h:form>
                         </li>
                     </ul>
@@ -94,79 +94,140 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        
+
 
         <!-- Full page -->
         <div id="page-content">
-            <h3 align="center">Create Sale</h3>
-            <br></br>
-            <h:form>
-    
-            <div class="container-fluid">
-                <div class="row">
-                        <div class="col-lg-4">
-
-                        </div>
-                        <div class="col-lg-8">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Clients</h3>
-                                </div>
-                                
-                                <p:autoComplete  id="dd" dropdown="true" value="#{createSaleBean.xd}" completeMethod="#{createSaleBean.completeText}"  >
-                                </p:autoComplete>
-                        </div>
-
-                </div>
-                <br></br>
-                
-                <div  class="row">
-                    
-                    <div class="col-lg-4">
-
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="panel-heading">
-                            <h3 class="panel-title "> Avaliable cars</h3>
-                        </div>
-                        <!--<p:growl id="msg" showDetail="true" escape="false" />-->
-                        <p:pickList id="pickList" value="#{createSaleBean.dualList}" var="car" itemLabel="" itemValue="" 
-                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
-
-                                    >
-                           
-                                <p:column style="float: left">
-                                    #{car.name}
-                                </p:column>
-                                
-                            
-                                
-                            
-               
-                        </p:pickList>
-                    </div>
-                </div>
-            </div>        
-
-        </h:form>
-            
-            
-            
-            
-            
-            
-            
-            <!-- Notification bar -->
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
             <div id="notification-bar" class="container">
                 <div class="row">
                     <h:outputText value="#{createSaleBean.message}" escape="false" />
                 </div>
             </div>
+            <h3 align="center">Create Sale</h3>
+            <br></br>
+
+
+
+            <div class="container-fluid">
+
+                <h:form id="form-clients">
+                    <div class="row">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Clients</h3>
+                            </div>
+
+                            <p:autoComplete  size="80" id="dd"  dropdown="true"  value="#{createSaleBean.clientValue}" completeMethod="#{createSaleBean.completeText}"  
+                                             maxResults="10" forceSelection="true">
+
+                                <p:ajax event="itemSelect" 
+                                        listener="#{createSaleBean.handleSelect}"
+                                        global="false" />
+
+                            </p:autoComplete>
+                        <!--<h:outputText hidden="true"  id="text" value="#{createSaleBean.clientValue}" />-->
+                        </div>
+                    </div>
+                </h:form>
+
+                <br></br>
+                <br></br>
+                <h:form id="form-cars">
+                    <div  class="row">
+
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="panel-heading">
+                                <h3 class="panel-title "> Avaliable cars</h3>
+                            </div>
+                            <br></br>
+                            <p:growl id="msg" showDetail="true" escape="false" />
+                            <p:pickList id="PojoPickList" value="#{createSaleBean.dualList}" var="car" effect="bounce"
+                                        itemValue="#{car.carId}" itemLabel="#{car.name}" showSourceControls="true" showTargetControls="true" showCheckbox="true" responsive="true"
+                                        showSourceFilter="true" showTargetFilter="true" 
+                                        >
+
+                                <f:facet name="sourceCaption">Available</f:facet>
+                                <f:facet name="targetCaption">Added</f:facet>
+
+                                <p:ajax event="transfer" listener="#{createSaleBean.onTransfer}"
+                                        update=":form-table:cars1" />
+
+                            </p:pickList>
+
+                        </div>
+
+                    </div>
+                    <br></br>
+
+                </h:form>
+
+
+                <br></br>
+                <br></br>
+                <h:form id="form-table">
+
+                    <div class="row">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-7">
+                            <p:growl id="msgs" showDetail="true"/>
+
+                            <p:dataTable  id="cars1" var="carAmount" value="#{createSaleBean.carAmountList}" style="margin-bottom:20px" >
+                                <f:facet name="header">
+                                    Order Cars
+                                </f:facet>
+
+
+                                <p:column headerText="Name">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{carAmount.car.name}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput" value="#{carAmount.car.name}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Price">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{carAmount.car.price}" /></f:facet>
+                                        <f:facet name="input"><p:inputText id="modelInput2" value="#{carAmount.car.price}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="Amount">
+                                    <p:inplace id="ajax" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{carAmount.amount}" required="true" label="text" valueChangeListener="#{createSaleBean.updateAmount}">
+                                            <f:attribute name="idCar" value="#{carAmount}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </div>
+                </h:form>
+
+
+
+                <h:form>
+                    <p:commandButton actionListener="#{createSaleBean.info}" action="#{createSaleBean.createSale()}" value="Create Sale" class="btn btn-primary"/>
+                </h:form>
+
+            </div>        
+
 
             <!-- End page content -->
 
         </div>
 
-        
+
         <!-- End data table -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->

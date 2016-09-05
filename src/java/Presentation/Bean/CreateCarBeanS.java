@@ -111,7 +111,6 @@ public class CreateCarBeanS {
     
     public void onCarDrop(DragDropEvent ddEvent) {
         Part part = ((Part) ddEvent.getData());
-        System.out.println(partsAdded.size());
         partsAdded.add(part);
     }
     

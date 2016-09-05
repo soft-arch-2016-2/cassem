@@ -10,13 +10,12 @@ import BusinessLogic.Controller.HandleClient;
 import BusinessLogic.Controller.HandleSale;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.Client;
+import DataAccess.Entity.Orders;
 import DataAccess.Entity.Sale;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -24,7 +23,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import org.primefaces.context.RequestContext;
+
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.event.UnselectEvent;
@@ -46,15 +47,31 @@ public class CreateSaleBean implements Serializable{
     private List<Car> cars;
     private List<Car> addedCars;
     private DualListModel <Car>dualList;
-    private String xd;
+    private String clientValue;
+    private String selectValue;
+    private ArrayList<Orders> orders;
+    private Client client;
+    private ArrayList<CarAmount> carAmountList;
     
+
     
     public CreateSaleBean(){
         addedCars = new ArrayList<>();
         getAllCars();
+        getAllClients();
         dualList = new DualListModel<>(cars, addedCars);
+        carAmountList = new ArrayList<>();
+        orders = new ArrayList<>();
+        clientValue = "";
     }
 
+    
+
+    
+    public List<Car> getAddCarsTable(){
+        return (List<Car>) dualList.getTarget();
+    }
+    
     public List<Car> getAddedCars() {
         return addedCars;
     }
@@ -90,13 +107,15 @@ public class CreateSaleBean implements Serializable{
         this.clients = clients;
     }
 
-    public String getXd() {
-        return xd;
+    public String getClientValue() {
+        return clientValue;
     }
 
-    public void setXd(String xd) {
-        this.xd = xd;
+    public void setClientValue(String clientValue) {
+        this.clientValue = clientValue;
     }
+
+    
     
  
 
@@ -123,6 +142,15 @@ public class CreateSaleBean implements Serializable{
     public void setSales(List<Sale> sales) {
         this.sales = sales;
     }
+    public ArrayList<CarAmount> getCarAmountList() {
+        return carAmountList;
+    }
+
+    public void setCarAmountList(ArrayList<CarAmount> carAmountList) {
+        this.carAmountList = carAmountList;
+    }
+
+    
     
     public List<Sale> getAllSales() {
         //if(sales == null){
@@ -133,12 +161,27 @@ public class CreateSaleBean implements Serializable{
     }
 
     public void createSale() {
+        
+        
         HandleSale handleSale = new HandleSale();
-        message = handleSale.createSale(name);
-        message = Util.buildSuccess("Correct", message);
+        client = findClient();
+        FacesContext context = FacesContext.getCurrentInstance();
+        String username = (String) context.getExternalContext().getSessionMap().get("user");
+        message = handleSale.createSale( orders, client,username );
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message));
     }
     
-    public void deleteSale( Sale sale){
+    public Client findClient(){
+        
+        for( int i = 0; i < clients.size(); i++ ){
+            if( clients.get(i).getName().equals(clientValue) ){
+                return clients.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public void deleteSale( Sale sale ){
         sales.remove(sale);
         HandleSale handleSale = new HandleSale();
         message = handleSale.deleteSale(sale);
@@ -184,12 +227,15 @@ public class CreateSaleBean implements Serializable{
         List<String> results = new ArrayList<String>();
         getAllClients();
         for(int i = 0; i < clients.size(); i++) {
-            if(clients.get(i).getName().toLowerCase().startsWith(query) || query.equals(""))
+            if(clients.get(i).getName().toLowerCase().startsWith(query) )
                results.add(clients.get(i).getName());
         }
         return results;
     }
     
+    public void info() {
+        
+    }
     
     public List<Car> getAllCars() {
         if(cars!=null)
@@ -199,18 +245,55 @@ public class CreateSaleBean implements Serializable{
         return cars;   
     }
     
-    public void onTransfer(TransferEvent event) {
-        StringBuilder builder = new StringBuilder();
-        for(Object item : event.getItems()) {
-            builder.append(((Car) item).getName()).append("<br />");
+    private void deleteRows( ArrayList<String> ids, ArrayList<Orders> orders, ArrayList<CarAmount> amountList ){
+        for( int i = 0; i < orders.size(); i++ ){
+            Orders current = orders.get(i);
+            boolean contains = false;
+            for( int j = 0; j < ids.size(); j++ ){
+               if( current.getCarId().getCarId() == Integer.parseInt(ids.get(j)) ){
+                   contains = true;
+                   break;
+                }
+            }
+            if( contains == false ){
+                orders.remove(i);
+                amountList.remove(i);
+                i--;
+            } 
         }
-         
-        FacesMessage msg = new FacesMessage();
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);
-        msg.setSummary("Items Transferred");
-        msg.setDetail(builder.toString());
-         
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    private Car findCar( int id ){
+        for( int i = 0; i < cars.size(); i++ ){
+            if( cars.get(i).getCarId() == id ){
+                return cars.get(i);
+            }
+        }
+        return null;
+    }
+    private void addRows( ArrayList<String> ids, ArrayList<Orders> orders, ArrayList<CarAmount> amountList ){
+        for( int i = 0; i < ids.size(); i++ ){
+            int id = Integer.parseInt(ids.get(i));
+            boolean exist = false;
+            for( int j = 0; j < orders.size(); j++ ){
+                if( id == orders.get(j).getCarId().getCarId() ){
+                    exist = true;
+                }
+            }
+            if( !exist ){
+                Car car = findCar(id);
+                orders.add(new Orders(1, car));
+                amountList.add(new CarAmount(car, 1));
+            }
+        }
+    }
+            
+    
+    public void onTransfer(TransferEvent event) {
+
+        ArrayList<String> tmp = (ArrayList<String>)(Object)dualList.getTarget();
+        deleteRows(tmp, orders, carAmountList );
+        addRows(tmp, orders, carAmountList );
+
     } 
  
     public void onSelect(SelectEvent event) {
@@ -227,6 +310,89 @@ public class CreateSaleBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
     }
+    
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+    
+    public void updateAmount(ValueChangeEvent event) throws IOException {
+
+        UIInput component = (UIInput) event.getComponent();
+        CarAmount carAmount = (CarAmount) (component.getAttributes().get("idCar"));
+        //Car car = (Car) (component.getAttributes().get("idCar"));
+        int val = Integer.parseInt(event.getNewValue() + "");
+        
+        
+        for( int i =0 ; i < orders.size(); i++ ){
+            if( orders.get(i).getCarId().getCarId() == carAmount.getCar().getCarId() ){
+                orders.get(i).setAmount(val);
+                carAmountList.get(i).setAmount(val);
+            }
+        }
+        
+        
+        /*Part newPart = new Part(oldPart);
+        newPart.setName(event.getNewValue() + "");
+
+        HandlePart handlePart = new HandlePart();
+        message = handlePart.updatePart(oldPart, newPart);
+        message = Util.buildSuccess("Correct", message);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");*/
+    }
+    
+    
+        
+    public class CarAmount{
+        private Car car;
+        private int amount;
+        
+        public CarAmount( Car c, int amount){
+            this.car = c;
+            this.amount = amount;
+        }
+
+        public Car getCar() {
+            return car;
+        }
+
+        public void setCar(Car car) {
+            this.car = car;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
+        
+        
+    }
+    
+    public void handleSelect(SelectEvent event) {
+        //System.out.println(event.getObject());
+        selectValue = (String) event.getObject();
+    
+    }
+
+    
 
 
 }

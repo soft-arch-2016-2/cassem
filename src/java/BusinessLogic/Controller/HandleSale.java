@@ -5,8 +5,15 @@
  */
 package BusinessLogic.Controller;
 
+import DataAccess.DAO.OrdersDAO;
 import DataAccess.DAO.SaleDAO;
+import DataAccess.DAO.UserDAO;
+import DataAccess.Entity.Client;
+import DataAccess.Entity.Orders;
 import DataAccess.Entity.Sale;
+import DataAccess.Entity.User;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +22,7 @@ import java.util.List;
  */
 public class HandleSale {
     
+    
     public List<Sale> getAllSales() {
         
         SaleDAO clientDAO = new SaleDAO();
@@ -22,19 +30,40 @@ public class HandleSale {
         return query;
     }
     
-    public String createSale(String name) {
+    public User getCurrentUser( String username ){
+        UserDAO userDAO = new UserDAO();
+        List<User> users = userDAO.searchAllUsers();
+        for( int i = 0; i < users.size(); i++ )
+            if(users.get(i).getUsername().getUsername().equals(username))
+                return users.get(i);
+        return null;
+    }
+    public String createSale( ArrayList<Orders> orders, Client client, String username ) {
             
         String response = "Sale has not been created";
-
-        SaleDAO clientDAO = new SaleDAO();
-        
-        Sale client = new Sale();
-        //client.setName(name);
-
-        if (clientDAO.persist(client) != null) {
-            response = "Sale has been created succesfully";
+        Date d = new Date();
+        Sale sale = new Sale(d);
+        sale.setClientId(client);
+        sale.setUserId(getCurrentUser(username));
+        SaleDAO saleDAO = new SaleDAO();
+        Sale saleE = saleDAO.persist(sale);
+        if( saleE != null ){
+            int count = 0;
+            
+            for( int i = 0; i < orders.size(); i++ ){
+                Orders order = orders.get(i);
+                order.setSaleId(sale);
+                OrdersDAO orderDAO = new OrdersDAO();
+                Orders orderE = orderDAO.persist(order);
+                if( orderE!=null ){
+                    count++;
+                    
+                }
+            }
+            if(count == orders.size()){
+                response = "Sale has been created succesfully";
+            } 
         }
-        
         return response;
     }
     
