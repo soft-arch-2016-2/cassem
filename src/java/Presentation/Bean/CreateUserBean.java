@@ -5,10 +5,8 @@
  */
 package Presentation.Bean;
 
-import BusinessLogic.Controller.HandleClient;
 import BusinessLogic.Controller.HandleUser;
 import BusinessLogic.Controller.ResponseMessage;
-import DataAccess.Entity.Client;
 import DataAccess.Entity.User;
 import java.io.IOException;
 import java.io.Serializable;
@@ -25,13 +23,13 @@ import javax.faces.event.ValueChangeEvent;
  */
 @ManagedBean
 @ViewScoped
-public class CreateUserBean implements Serializable{
+public class CreateUserBean implements Serializable {
 
     private String username;
     private String password;
     private String message;
     private String type;
-    
+
     private List<User> users;
 
     public CreateUserBean() {
@@ -78,15 +76,26 @@ public class CreateUserBean implements Serializable{
     }
 
     public void createUser() {
-        HandleUser handleUser = new HandleUser();
-        ResponseMessage response = handleUser.createAccount(username, password, type);
+        if(username == null || username.length() < 5)
+            message = Util.buildDanger("Error", "Username must have at least 5 characters");
+        else if(password == null || password.length() < 5)
+            message = Util.buildDanger("Error", "Password must have at least 5 characters");
+        else if(!Util.onlyLettersNumbers(username))
+            message = Util.buildDanger("Error", "Username must have only letters or numbers");
+        else if(type == null || type.isEmpty())
+            message = Util.buildDanger("Error", "You must select a type of user");
+        else {
+            HandleUser handleUser = new HandleUser();
+            ResponseMessage response = handleUser.createAccount(username, password, type);
 
-        if (response.isSuccessful()) {
-            message = Util.buildSuccess("Correct", response.getMessage());
-        } else {
-            message = Util.buildDanger("Error", "");
+            if (response.isSuccessful()) {
+                message = Util.buildSuccess("Correct", response.getMessage());
+            } else {
+                message = Util.buildDanger("Error", "User has not been created");
+            }
+            username = password = "";
         }
-        username = password = "";
+
     }
 
     public List<User> getAllUsers() {
@@ -94,39 +103,44 @@ public class CreateUserBean implements Serializable{
         users = handleUser.getAllUsers();
         return users;
     }
-    
+
     public void updateUserUsername(ValueChangeEvent event) throws IOException {
-       
+
         UIInput component = (UIInput) event.getComponent();
-        
+
         Integer idUser = Integer.parseInt(component.getAttributes().get("idUser").toString());
-        
+
         String newUsername = event.getNewValue().toString();
-               
-        HandleUser handleUser = new HandleUser();
-        message = handleUser.updateUserUsername(idUser, newUsername);
-        message = Util.buildSuccess("Correct", message);
-        
+
+        if(newUsername == null || newUsername.length() < 5){
+            message = Util.buildDanger("Error", "Username must have at least 5 characters");
+        }else if (!Util.onlyLettersNumbers(newUsername)) {
+            message = Util.buildDanger("Error", "Username must have only letters or numbers");
+        } else {
+            HandleUser handleUser = new HandleUser();
+            message = handleUser.updateUserUsername(idUser, newUsername);
+            message = Util.buildSuccess("Correct", message);
+        }
         FacesContext.getCurrentInstance().getExternalContext().redirect("createUser.xhtml");
-     }
-    
+    }
+
     public void updateUserPassword(ValueChangeEvent event) throws IOException {
-       
+
         UIInput component = (UIInput) event.getComponent();
-        
+
         Integer idUser = Integer.parseInt(component.getAttributes().get("idUser").toString());
-        
+
         String newPassword = event.getNewValue().toString();
-               
+
         HandleUser handleUser = new HandleUser();
         message = handleUser.updateUserPassword(idUser, newPassword);
         message = Util.buildSuccess("Correct", message);
-        
+
         FacesContext.getCurrentInstance().getExternalContext().redirect("createUser.xhtml");
-     }
-    
-    public void deleteUser( User user){
-        
+    }
+
+    public void deleteUser(User user) {
+
         users.remove(user);
         HandleUser handleUser = new HandleUser();
         message = handleUser.deleteUser(user);

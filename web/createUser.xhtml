@@ -16,7 +16,7 @@
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="img/favicon.png" />
-        
+
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -100,12 +100,19 @@
         <div id="page-content">
 
             <!-- Notification bar -->
+            
+            <div class="container">
+                <div class="row">
+                    <div class="alert alert-info" role="alert"><strong>Info. </strong>Username must have only letters or numbers.</div>
+                </div>
+            </div>
+            
             <div id="notification-bar" class="container">
                 <div class="row">
                     <h:outputText value="#{createUserBean.message}" escape="false" />
                 </div>
             </div>
-
+            
             <!-- Page content starts here -->
             <div class="container">
                 <div class="row">
@@ -139,9 +146,7 @@
                                     <!-- Username -->
                                     <label class="control-label"  for="username">Username</label>
                                     <div class="controls">
-                                        <p:inputText value="#{createUserBean.username}" required="true" class="input-xlarge" >
-                                            <f:validateLength minimum="5" maximum="25"/>
-                                        </p:inputText>
+                                        <p:inputText value="#{createUserBean.username}" class="input-xlarge" />
                                         <p class="help-block">Username can contain any letters or numbers, without spaces</p>
                                     </div>
                                 </div>
@@ -150,9 +155,7 @@
                                     <!-- Password-->
                                     <label class="control-label" for="password">Password</label>
                                     <div class="controls">
-                                        <p:password value="#{createUserBean.password}" required="true" class="input-xlarge">
-                                            <f:validateLength minimum="5" maximum="25"/>
-                                        </p:password>
+                                        <p:password value="#{createUserBean.password}" class="input-xlarge" />
                                         <p class="help-block">Password should be at least 5 characters</p>
                                     </div>
                                 </div>
@@ -161,7 +164,7 @@
                                     <!-- Type (Administrator, seller or employee)-->
                                     <label class="control-label" for="type">Type</label>
                                     <div class="controls">
-                                        <p:selectOneRadio id="type" value="#{createUserBean.type}" required="true" class="radio">
+                                        <p:selectOneRadio id="type" value="#{createUserBean.type}" class="radio">
                                             <f:selectItem itemLabel="Administrator" itemValue="ADMIN"  />
                                             <f:selectItem itemLabel="Employee" itemValue="EMPLOYEE" />
                                             <f:selectItem itemLabel="Seller" itemValue="SELLER" />
@@ -173,7 +176,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <h:commandButton action="#{createUserBean.createUser()}" value="Create" class="btn btn-primary"/>
+                            <h:commandButton action="#{createUserBean.createUser()}" value="Create" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
@@ -210,9 +213,7 @@
                             <td> #{cell.getRole()} </td>
                             <td>
                                 <h:form>
-                                    <h:commandButton action="#{createUserBean.deleteUser( row )}" value="Delete" class="btn btn-danger">
-                                        <!--<span class="glyphicon glyphicon-trash"/>-->
-                                    </h:commandButton> 
+                                    <h:commandButton action="#{createUserBean.deleteUser( row )}" value="Delete" class="btn btn-danger" />
                                 </h:form>
                             </td>
                         </ui:repeat>
