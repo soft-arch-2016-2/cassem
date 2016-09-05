@@ -13,10 +13,10 @@
         <meta name="author" content=""/>
 
         <title>Cassem</title>
-        
+
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="img/favicon.png" />
-
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -25,10 +25,8 @@
 
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
-
-        <!-- Table CSS-->
+        
         <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
-
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +42,7 @@
 
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isLogged()}" />
-
+        
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isCorrectRole()}" />
 
@@ -74,7 +72,7 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
-
+                            
                         </li>
                         <li class="page-scroll">
                             <h:link value="Car" outcome="createCar"/>
@@ -103,93 +101,54 @@
             <!-- /.container-fluid -->
         </nav>
 
+
+        
         <!-- Full page -->
         <div id="page-content">
-
+            
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createClientBean.message}" escape="false" />
+                    <h:outputText value="#{decreasePartBean.message}" escape="false" />
                 </div>
             </div>
 
             <!-- Page content starts here -->
             <div class="container">
-                <div class="row">
-                    <!-- Button trigger modal create user -->
-                    <div class="text-center col-md-6 col-md-offset-3 container">
-                        <div class="row">
-                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-add-client">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"/>Create
-                            </button> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- End page content -->
-
-        </div>
-
-        <!-- Modal create client -->
-        <h:form class="form-horizontal">
-            <div class="modal fade" id="modal-add-client" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Create</h4>
-                        </div>
-                        <div class="modal-body">
-                            <fieldset>
-                                <div class="control-group">
-                                    <!-- name -->
-                                    <label class="control-label"  for="name">Complete Name</label>
-                                    <div class="controls">
-                                        <p:inputText value="#{createClientBean.name}" class="input-xlarge" />
-                                        <p class="help-block">Complete Name</p>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <h:commandButton action="#{createClientBean.createClient()}" value="Create" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </h:form>
-
-        <!-- Start data table -->
-
-        <div id="table-content">
+                
+                <h3 align="center">Orders</h3>
+                <br></br>
+                
+                
+                <div id="table-content">
             <table id="example" class="display" cellspacing="0" width="100%"> 
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Options</th>
+                        <th>Employee</th>
+                        <th>Name car</th>
+                        <th>Amount</th>
+                        <th>Action</th> 
                     </tr>
                 </thead>
-                <ui:repeat value="#{createClientBean.allClients}" var="row">
+                <ui:repeat value="#{decreasePartBean.allOrders}" var="row">
                     <tr>
                         <ui:repeat value="#{row}" var="cell">
-                            <td> #{cell.getClientId()} </td>
+                            <td>#{cell.saleId.userId.username.username}</td>
+                            <td> #{cell.carId.name} </td>
                             <td>
+                                
                                 <h:form id="implace-form" >
                                     <p:inplace id="ajax" editor="true">
                                         <p:ajax event="save"/>
-                                        <p:inputText value="#{cell.getName()}" required="true" label="text" valueChangeListener="#{createClientBean.updateClient}">
-                                            <f:attribute name="idClient" value="#{row.clientId}" />
+                                        <p:inputText value="#{cell.amount}" required="true" label="text" valueChangeListener="#{decreasePartBean.updateAssembled}">
+                                            <f:attribute name="idOrder" value="#{row}" />
                                         </p:inputText>
                                     </p:inplace>
                                 </h:form>
                             </td>
                             <td>
                                 <h:form>
-                                    <h:commandButton action="#{createClientBean.deleteClient( row )}" value="Delete" class="btn btn-danger">
+                                    <h:commandButton action="#{decreasePartBean.assembledOrder( row )}" value="Assemble" class="btn btn-primary">
                                         <!--<span class="glyphicon glyphicon-trash"/>-->
                                     </h:commandButton> 
                                 </h:form>
@@ -199,11 +158,20 @@
                 </ui:repeat>
             </table>
         </div>
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
 
+            <!-- End page content -->
 
-        <!-- End data table -->
+        </div>
 
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
@@ -211,6 +179,5 @@
         <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/base.js"></script>
-
     </h:body>
 </html>

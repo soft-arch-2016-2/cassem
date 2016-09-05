@@ -83,7 +83,13 @@
                             <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
-                            <a href="#sales">Sales</a>
+                            <h:link value="assemble" outcome="decreasePart" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Sales" outcome="sale" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Stats" outcome="statistics" />
                         </li>
                         <li class="page-scroll">
                             <h:form>
@@ -209,7 +215,9 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Stock</th>
                         <th>Options</th>
+                        
                     </tr>
                 </thead>
                 <ui:repeat value="#{createPartBean.allParts}" var="row">
@@ -226,6 +234,7 @@
                                     </p:inplace>
                                 </h:form>
                             </td>
+                            <td> #{cell.stock} </td>
                             <td>
                                 <h:form>
                                     <h:commandButton action="#{createPartBean.deletePart( row )}" value="Delete" class="btn btn-danger">

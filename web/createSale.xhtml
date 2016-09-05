@@ -81,7 +81,13 @@
                             <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
-                            <a href="#sales">Sales</a>
+                            <h:link value="assemble" outcome="decreasePart" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Sales" outcome="sale" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Stats" outcome="statistics" />
                         </li>
                         <li class="page-scroll">
                             <h:form>
@@ -98,8 +104,11 @@
 
         <!-- Full page -->
         <div id="page-content">
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <div id="notification-bar" class="container">
+                <p:messages  id="messages" showDetail="true" autoUpdate="true" closable="true" />
+        
+            
+        
+        <div id="notification-bar" class="container">
                 <div class="row">
                     <h:outputText value="#{createSaleBean.message}" escape="false" />
                 </div>

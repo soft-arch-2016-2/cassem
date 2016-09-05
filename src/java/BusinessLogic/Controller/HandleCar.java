@@ -7,7 +7,6 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.CarDAO;
 import DataAccess.DAO.CarHasPartDAO;
-import DataAccess.DAO.PartDAO;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.Part;

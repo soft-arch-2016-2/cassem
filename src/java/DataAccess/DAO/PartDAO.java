@@ -69,6 +69,26 @@ public class PartDAO {
         return part;  
     }
     
+    public Part update(Part newPart){
+        
+        EntityManager em = emf1.createEntityManager();
+        
+        em.getTransaction().begin();
+        try {
+
+            em.merge(newPart);
+            
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+            newPart = null;
+        } finally {
+            em.close();
+        }
+        return newPart;  
+    }
+    
     
     public Part update(Part oldPart, Part newPart){
         
