@@ -31,6 +31,21 @@ public class Util {
         return buildAlert(ALERT_DANGER, title, message);
     }
     
+    public static boolean onlyNumbers(String word){
+        Pattern pattern = Pattern.compile("[0-9]+");
+        return pattern.matcher(word).matches();
+    }
+    
+    public static boolean onlyFloatNumbers(String word){
+        Pattern pattern = Pattern.compile("[0-9.]+");
+        return pattern.matcher(word).matches();
+    }
+    
+    public static boolean onlyLetters(String word){
+        Pattern pattern = Pattern.compile("[a-zA-Z]+");
+        return pattern.matcher(word).matches();
+    }
+    
     public static boolean onlyLettersNumbers(String word){
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]+");
         return pattern.matcher(word).matches();

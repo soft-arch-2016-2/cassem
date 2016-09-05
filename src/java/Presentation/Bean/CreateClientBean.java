@@ -24,12 +24,12 @@ import javax.faces.event.ValueChangeEvent;
 @ManagedBean
 @ViewScoped
 @SessionScoped
-public class CreateClientBean implements Serializable{
+public class CreateClientBean implements Serializable {
 
     private String name;
     private String message;
     private List<Client> clients;
-    
+
     public CreateClientBean() {
     }
 
@@ -56,52 +56,65 @@ public class CreateClientBean implements Serializable{
     public void setClients(List<Client> clients) {
         this.clients = clients;
     }
-    
+
     public List<Client> getAllClients() {
         //if(clients == null){
-            HandleClient handleClient = new HandleClient();
-            clients = handleClient.getAllClients();
+        HandleClient handleClient = new HandleClient();
+        clients = handleClient.getAllClients();
         //}
         return clients;
     }
 
     public void createClient() {
-        HandleClient handleClient = new HandleClient();
-        message = handleClient.createClient(name);
-        message = Util.buildSuccess("Correct", message);
+
+        if (!Util.onlyLetters(name)) {
+            message = Util.buildDanger("Error", "Name must have only letters.");
+        } else if (name.isEmpty() || name == null) {
+            message = Util.buildDanger("Error", "Name cannot be empty.");
+        } else {
+            HandleClient handleClient = new HandleClient();
+            message = handleClient.createClient(name);
+            message = Util.buildSuccess("Correct", message);
+        }
+
     }
-    
-    public void deleteClient( Client client){
-        
+
+    public void deleteClient(Client client) {
+
         clients.remove(client);
         HandleClient handleClient = new HandleClient();
         message = handleClient.deleteClient(client);
         message = Util.buildSuccess("Correct", message);
     }
-    
+
     public void updateClient(ValueChangeEvent event) throws IOException {
-       
+
         //Object oldValue = event.getOldValue();
         //Object newValue = event.getNewValue(); 
-        
         UIInput component = (UIInput) event.getComponent();
-        
-        int idClient = Integer.parseInt(component.getAttributes().get("idClient")+"");
-        
+
+        int idClient = Integer.parseInt(component.getAttributes().get("idClient") + "");
+
         Client oldClient = new Client();
         oldClient.setClientId(idClient);
-        oldClient.setName(event.getOldValue()+"");
-        
+        oldClient.setName(event.getOldValue() + "");
+
         Client newClient = new Client();
         newClient.setClientId(idClient);
-        newClient.setName(event.getNewValue()+"");
-        
-        HandleClient handleClient = new HandleClient();
-        message = handleClient.updateClient(oldClient, newClient);
-        message = Util.buildSuccess("Correct", message);
+        newClient.setName(event.getNewValue() + "");
+
+        if (!Util.onlyLetters(newClient.getName())) {
+            message = Util.buildDanger("Error", "Name must have only letters.");
+        } else if (newClient.getName().isEmpty() || newClient.getName() == null) {
+            message = Util.buildDanger("Error", "Name cannot be empty.");
+        } else {
+            HandleClient handleClient = new HandleClient();
+            message = handleClient.updateClient(oldClient, newClient);
+            message = Util.buildSuccess("Correct", message);
+        }
         
         FacesContext.getCurrentInstance().getExternalContext().redirect("createClient.xhtml");
- 
+
     }
 
 }

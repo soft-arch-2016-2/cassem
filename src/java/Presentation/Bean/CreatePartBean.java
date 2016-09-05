@@ -127,14 +127,25 @@ public class CreatePartBean implements Serializable {
         return true;
     }
 
-
-
-
     public void createPart() {
-        HandlePart HandlePart = new HandlePart();
-        message = HandlePart.createPart(name, stock, maxStock, provider, Float.parseFloat(price), category);
-        message = Util.buildSuccess("Correct", message);
         
+        if(name.isEmpty() || name == null){
+            message = Util.buildDanger("Error", "Name cannot be empty.");
+        }else if(!Util.onlyNumbers(stock+"")){
+            message = Util.buildDanger("Error", "Stock must have only letters.");
+        }else if(!Util.onlyNumbers(maxStock+"")){
+            message = Util.buildDanger("Error", "Max Stock must have only letters.");
+        }else if(!Util.onlyLetters(provider)){
+            message = Util.buildDanger("Error", "Provider must have only letters.");
+        }else if(!Util.onlyFloatNumbers(price)){
+            message = Util.buildDanger("Error", "Price must be a number.");
+        }else if(!Util.onlyLetters(category)){
+            message = Util.buildDanger("Error", "Category must have only letters.");
+        }else{
+            HandlePart HandlePart = new HandlePart();
+            message = HandlePart.createPart(name, stock, maxStock, provider, Float.parseFloat(price), category);
+            message = Util.buildSuccess("Correct", message);
+        }
     }
 
     public void deletePart(Part part) {
@@ -156,10 +167,13 @@ public class CreatePartBean implements Serializable {
         Part newPart = new Part(oldPart);
         newPart.setName(event.getNewValue() + "");
 
-        HandlePart handlePart = new HandlePart();
-        message = handlePart.updatePart(oldPart, newPart);
-        message = Util.buildSuccess("Correct", message);
-        FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
+        if(name.isEmpty() || name == null){
+            message = Util.buildDanger("Error", "Name cannot be empty.");
+        }else{
+            HandlePart handlePart = new HandlePart();
+            message = handlePart.updatePart(oldPart, newPart);
+            message = Util.buildSuccess("Correct", message);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
+        }
     }
-
 }

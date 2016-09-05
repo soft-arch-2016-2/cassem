@@ -65,9 +65,16 @@ public class CreateCarBeanS {
     
 
     public void createCar(){
-        HandleCar HandleCar = new HandleCar();
-        message = HandleCar.createCar(name,price,partsAdded);
-        message = Util.buildSuccess("Correct", message);
+        
+        if(name.isEmpty() || name == null){
+            message = Util.buildDanger("Error", "Name cannot be empty.");
+        }else if(!Util.onlyFloatNumbers(price+"")){
+            message = Util.buildDanger("Error", "Price must be a number.");
+        }else{
+            HandleCar HandleCar = new HandleCar();
+            message = HandleCar.createCar(name,price,partsAdded);
+            message = Util.buildSuccess("Correct", message);
+        }
     }
     
     public List<Part> listAllCars(){
