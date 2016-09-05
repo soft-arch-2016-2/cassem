@@ -8,6 +8,7 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleCar;
 import BusinessLogic.Controller.HandlePart;
+import DataAccess.Entity.Car;
 import DataAccess.Entity.Part;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CreateCarBeanS {
     private int price;
     private List<Part> partsAdded;
     private List<Part> parts;
+    private List<Car> cars;
     private Part valuePart;
     
     
@@ -61,7 +63,17 @@ public class CreateCarBeanS {
         this.price = price;
     }
 
-    
+    public List<Car> getCars() {
+        if(cars == null){
+            HandleCar handleCar = new HandleCar();
+            cars = handleCar.getAllCars();
+        }
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
     
 
     public void createCar(){
@@ -113,6 +125,13 @@ public class CreateCarBeanS {
 
     public void setValuePart(Part valuePart) {
         this.valuePart = valuePart;
+    }
+    
+    
+    public void deleteCar(Car car) {
+        
+        
+    
     }
     
     

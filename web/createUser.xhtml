@@ -76,13 +76,19 @@
 
                         </li>
                         <li class="page-scroll">
-                            <h:link value="Car" outcome="createCar"/>
+                            <h:link value="Car" outcome="car"/>
                         </li>
                         <li class="page-scroll">
                             <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
-                            <a href="#sales">Sales</a>
+                            <h:link value="assemble" outcome="decreasePart" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Sales" outcome="sale" />
+                        </li>
+                        <li class="page-scroll">
+                            <h:link value="Stats" outcome="statistics" />
                         </li>
                         <li class="page-scroll">
                             <h:form>
@@ -99,12 +105,18 @@
         <!-- Full page -->
         <div id="page-content">
 
+            <div class="container">
+                <div class="row">
+                    <div class="alert alert-info" role="alert"><strong>Info. </strong>Username must have only letters and numbers.</div>
+                </div>
+            </div>
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
                     <h:outputText value="#{createUserBean.message}" escape="false" />
                 </div>
             </div>
+            
 
             <!-- Page content starts here -->
             <div class="container">

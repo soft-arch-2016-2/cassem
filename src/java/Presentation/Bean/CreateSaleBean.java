@@ -66,7 +66,6 @@ public class CreateSaleBean implements Serializable{
         //clientValue = clients.get(0).getName();
     }
 
-    
 
     
     public List<Car> getAddCarsTable(){
@@ -175,6 +174,7 @@ public class CreateSaleBean implements Serializable{
         }else{
             HandleSale handleSale = new HandleSale();
             message = handleSale.createSale( orders, client,username );
+            FacesContext.getCurrentInstance().getExternalContext().redirect("createSale.xhtml"); //etehcam
             message = Util.buildSuccess("Correct", message);
         }
 

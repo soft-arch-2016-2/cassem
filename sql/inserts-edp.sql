@@ -1,7 +1,7 @@
-INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(108,1,3);
+INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(108,3,3);
 INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(18,2,4);
 INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(18,3,5);
-INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(8,1,2);
+INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(8,2,2);
 INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(28,4,2);
 INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(38,2,1);
 INSERT INTO `dbcassem`.`employee_decrease_part`(`user_id`,`part_id`,`amount`)VALUES(22,3,3);

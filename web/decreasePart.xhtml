@@ -14,6 +14,9 @@
 
         <title>Cassem</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="img/favicon.png" />
+        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -22,8 +25,7 @@
 
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
-
-        <!-- Table CSS-->
+        
         <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
 
         <!-- Custom Fonts -->
@@ -40,7 +42,7 @@
 
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isLogged()}" />
-
+        
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isCorrectRole()}" />
 
@@ -70,7 +72,7 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
-
+                            
                         </li>
                         <li class="page-scroll">
                             <h:link value="Car" outcome="car"/>
@@ -100,91 +102,82 @@
         </nav>
 
 
+        
         <!-- Full page -->
         <div id="page-content">
-
+            
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createUserBean.message}" escape="false" />
+                    <h:outputText value="#{decreasePartBean.message}" escape="false" />
                 </div>
             </div>
 
             <!-- Page content starts here -->
             <div class="container">
-                <div class="row">
-                    <p:chart type="line" model="#{statisticsEDPBean.modelEDP}" style="height:300px;"/>
-                </div>
-                <div class="row">
-                    <h2>Most part used</h2>
-                    <!-- Start data table most part used-->
-
-                    <div  class="row">
-                        <table id="" class="display" cellspacing="0" width="100%"> 
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Amount used</th>
-                                </tr>
-                            </thead>
-                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
-                                <tr>
-                                    <ui:repeat value="#{row}" var="cell">
-                                        <td> #{cell.part.partId} </td>
-                                        <td> #{cell.part.name} </td>
-                                        <td> #{cell.amount} </td>
-                                    </ui:repeat>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </div>
-                    <!-- End data table most part used-->
-                </div>
-                <div class="row">
-                    <h2>Stock</h2>
-                    <!-- Start data table stock-->
-
-                    <div  class="row">
-                        <table id="" class="display" cellspacing="0" width="100%"> 
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Amount used</th>
-                                    <th>Max stock</th>
-                                </tr>
-                            </thead>
-                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
-                                <tr>
-                                    <ui:repeat value="#{row}" var="cell">
-                                        <td> #{cell.part.partId} </td>
-                                        <td> #{cell.part.name} </td>
-                                        <td> #{cell.part.stock} </td>
-                                        <td> #{cell.part.maxStock} </td>
-                                    </ui:repeat>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </div>
-                    <!-- End data table stock-->
-                </div>
+                
+                <h3 align="center">Orders</h3>
+                <br></br>
+                
+                
+                <div id="table-content">
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Name car</th>
+                        <th>Amount</th>
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <ui:repeat value="#{decreasePartBean.allOrders}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td>#{cell.saleId.userId.username.username}</td>
+                            <td> #{cell.carId.name} </td>
+                            <td>
+                                
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="true">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.amount}" required="true" label="text" valueChangeListener="#{decreasePartBean.updateAssembled}">
+                                            <f:attribute name="idOrder" value="#{row}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                            <td>
+                                <h:form>
+                                    <h:commandButton action="#{decreasePartBean.assembledOrder( row )}" value="Assemble" class="btn btn-primary">
+                                        <!--<span class="glyphicon glyphicon-trash"/>-->
+                                    </h:commandButton> 
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </div>
+                
+                
+                
+                
+                
+                
+                
+                
             </div>
 
             <!-- End page content -->
 
         </div>
 
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
 
+        <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('table.display').DataTable();
-            });
-        </script>
+        <script src="js/base.js"></script>
     </h:body>
 </html>

@@ -13,6 +13,9 @@
         <meta name="author" content=""/>
 
         <title>Cassem</title>
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="img/favicon.png" />
 
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -21,10 +24,10 @@
         <link href="css/freelancer.min.css" rel="stylesheet"/>
 
         <!-- Base CSS-->
-        <link href="css/base.css" rel="stylesheet"/>
-
-        <!-- Table CSS-->
+        <link href="css/createcar.css" rel="stylesheet"/>
+        
         <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
+
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -87,6 +90,7 @@
                         <li class="page-scroll">
                             <h:link value="Stats" outcome="statistics" />
                         </li>
+                        
                         <li class="page-scroll">
                             <h:form>
                                 <h:commandButton action="#{userSessionBean.logout()}" value="Logout" class="btn btn-danger"/>
@@ -100,91 +104,70 @@
         </nav>
 
 
-        <!-- Full page -->
+        <!-- Modal create part -->
         <div id="page-content">
 
-            <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createUserBean.message}" escape="false" />
+                    <h:outputText value="#{createCarBeanS.message}" escape="false" />
                 </div>
             </div>
-
-            <!-- Page content starts here -->
+            
             <div class="container">
                 <div class="row">
-                    <p:chart type="line" model="#{statisticsEDPBean.modelEDP}" style="height:300px;"/>
-                </div>
-                <div class="row">
-                    <h2>Most part used</h2>
-                    <!-- Start data table most part used-->
-
-                    <div  class="row">
-                        <table id="" class="display" cellspacing="0" width="100%"> 
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Amount used</th>
-                                </tr>
-                            </thead>
-                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
-                                <tr>
-                                    <ui:repeat value="#{row}" var="cell">
-                                        <td> #{cell.part.partId} </td>
-                                        <td> #{cell.part.name} </td>
-                                        <td> #{cell.amount} </td>
-                                    </ui:repeat>
-                                </tr>
-                            </ui:repeat>
-                        </table>
+                    <!-- Button trigger modal create user -->
+                    <div class="text-center col-md-6 col-md-offset-3 container">
+                        <div class="row">
+                            <h:button  value="+ Create" class="btn btn-default btn-lg" outcome="createCar"></h:button> 
+                        </div>
                     </div>
-                    <!-- End data table most part used-->
                 </div>
-                <div class="row">
-                    <h2>Stock</h2>
-                    <!-- Start data table stock-->
-
-                    <div  class="row">
-                        <table id="" class="display" cellspacing="0" width="100%"> 
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Amount used</th>
-                                    <th>Max stock</th>
-                                </tr>
-                            </thead>
-                            <ui:repeat value="#{statisticsEDPBean.amounts}" var="row">
-                                <tr>
-                                    <ui:repeat value="#{row}" var="cell">
-                                        <td> #{cell.part.partId} </td>
-                                        <td> #{cell.part.name} </td>
-                                        <td> #{cell.part.stock} </td>
-                                        <td> #{cell.part.maxStock} </td>
-                                    </ui:repeat>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </div>
-                    <!-- End data table stock-->
-                </div>
+                
+                <div id="table-content">
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name car</th>
+                        <th>Price</th>
+                        
+                    </tr>
+                </thead>
+                <ui:repeat value="#{createCarBeanS.cars}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td> #{cell.carId} </td>
+                            <td> #{cell.name} </td>
+                            <td>
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="f">
+                                        <p:ajax event="save"/>
+                                        <p:inputText value="#{cell.price}" required="true" label="text" >
+                                            <f:attribute name="idPart" value="#{row}" />
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
+        </div>
+                
             </div>
-
-            <!-- End page content -->
-
+            
+            
+            
+            
         </div>
 
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
+
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
 
+        <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('table.display').DataTable();
-            });
-        </script>
+        <script src="js/base.js"></script>
     </h:body>
 </html>

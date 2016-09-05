@@ -61,6 +61,12 @@ public class EmployeeDecreasePart implements Serializable {
         this.decreaseId = decreaseId;
         this.amount = amount;
     }
+    
+    public EmployeeDecreasePart(int amount, User userId, Part partId ) {
+        this.amount = amount;
+        this.userId = userId;
+        this.partId = partId;
+    }
 
     public Integer getDecreaseId() {
         return decreaseId;
