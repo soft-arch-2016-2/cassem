@@ -125,9 +125,40 @@
         <!-- Start data table -->
 
         <div id="table-content">
-            
+            <table id="example" class="display" cellspacing="0" width="100%"> 
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>User</th>
+                        <th>Client</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <ui:repeat value="#{createSaleBean.allSales}" var="row">
+                    <tr>
+                        <ui:repeat value="#{row}" var="cell">
+                            <td> 
+                                #{cell.saleId}
+                            </td>
+                            <td>
+                                #{cell.userId.username.username}
+                            </td>
+                            <td>
+                                #{cell.clientId.name}
+                            </td>
+                            <td>
+                                <h:form id="implace-form" >
+                                    <p:inplace id="ajax" editor="false">
+                                        <p:inputText value="#{cell.date}" required="true" label="text" valueChangeListener="#{createPartBean.updatePart}">
+                                        </p:inputText>
+                                    </p:inplace>
+                                </h:form>
+                            </td>
+                        </ui:repeat>
+                    </tr>
+                </ui:repeat>
+            </table>
         </div>
-
 
         <!-- End data table -->
 

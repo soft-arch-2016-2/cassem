@@ -63,6 +63,7 @@ public class CreateSaleBean implements Serializable{
         carAmountList = new ArrayList<>();
         orders = new ArrayList<>();
         clientValue = "";
+        //clientValue = clients.get(0).getName();
     }
 
     
@@ -160,15 +161,23 @@ public class CreateSaleBean implements Serializable{
         return sales;
     }
 
-    public void createSale() {
+    public void createSale() throws IOException {
         
-        
-        HandleSale handleSale = new HandleSale();
         client = findClient();
         FacesContext context = FacesContext.getCurrentInstance();
         String username = (String) context.getExternalContext().getSessionMap().get("user");
-        message = handleSale.createSale( orders, client,username );
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", message));
+        
+        if(orders.isEmpty()){
+            message = Util.buildDanger("Error", "The order cannot be empty.");
+        }else if(client == null){
+            FacesContext.getCurrentInstance().getExternalContext().redirect("createSale.xhtml"); //etehcam
+            message = Util.buildDanger("Error", "Client is required.");
+        }else{
+            HandleSale handleSale = new HandleSale();
+            message = handleSale.createSale( orders, client,username );
+            message = Util.buildSuccess("Correct", message);
+        }
+
     }
     
     public Client findClient(){

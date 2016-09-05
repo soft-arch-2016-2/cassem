@@ -129,7 +129,6 @@
                                         global="false" />
 
                             </p:autoComplete>
-                        <!--<h:outputText hidden="true"  id="text" value="#{createSaleBean.clientValue}" />-->
                         </div>
                     </div>
                 </h:form>
@@ -221,7 +220,7 @@
                         </div>
                         <div class="col-lg-5">
                             <h:form>
-                                <p:commandButton actionListener="#{createSaleBean.info}" action="#{createSaleBean.createSale()}" value="Create Sale" class="btn btn-primary"/>
+                                <h:commandButton action="#{createSaleBean.createSale()}" value="Create Sale" class="btn btn-primary"/>
                             </h:form>
                         </div>
                 </div>

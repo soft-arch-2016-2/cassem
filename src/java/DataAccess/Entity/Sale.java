@@ -6,6 +6,7 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -86,8 +87,9 @@ public class Sale implements Serializable {
         this.saleId = saleId;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date).toString();
     }
 
     public void setDate(Date date) {
