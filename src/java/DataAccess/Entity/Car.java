@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm18
+ * @author Fabian
  */
 @Entity
 @Table(name = "car")
@@ -56,7 +56,7 @@ public class Car implements Serializable {
     private Collection<CarHasPart> carHasPartCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carId")
     private Collection<Orders> ordersCollection;
-
+    
     public Car() {
     }
 
@@ -68,6 +68,7 @@ public class Car implements Serializable {
         this.name = name;
         this.price = price;
     }
+
 
     public Car(Integer carId, String name, long price) {
         this.carId = carId;

@@ -1,7 +1,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
 
@@ -13,9 +14,6 @@
 
         <title>Cassem</title>
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="img/favicon.png" />
-        
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -24,6 +22,10 @@
 
         <!-- Base CSS-->
         <link href="css/base.css" rel="stylesheet"/>
+
+        <!-- Table CSS-->
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
+
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -39,7 +41,7 @@
 
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isLogged()}" />
-        
+
         <f:event type="preRenderView"
                  listener="#{userSessionBean.isCorrectRole()}" />
 
@@ -69,7 +71,7 @@
                         </li>
                         <li class="page-scroll">
                             <h:link value="Parts" outcome="createPart"/>
-                            
+
                         </li>
                         <li class="page-scroll">
                             <h:link value="Car" outcome="createCar"/>
@@ -78,10 +80,7 @@
                             <h:link value="Clients" outcome="createClient" />
                         </li>
                         <li class="page-scroll">
-                            <h:link value="Sales" outcome="sale" />
-                        </li>
-                        <li class="page-scroll">
-                            <h:link value="Stats" outcome="statistics" />
+                            <a href="#sales">Sales</a>
                         </li>
                         <li class="page-scroll">
                             <h:form>
@@ -95,35 +94,26 @@
             <!-- /.container-fluid -->
         </nav>
 
-        <!-- Header -->
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <img style="border-radius: 30%" class="img-responsive" src="img/profile_user.png" alt=""/>
-                        <div class="intro-text">
-                            <span class="name">Cassem</span>
-                            <hr class="star-light" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        
         <!-- Full page -->
         <div id="page-content">
 
             <!-- Notification bar -->
             <div id="notification-bar" class="container">
                 <div class="row">
-                    <h:outputText value="#{createUserBean.message}" escape="false" />
+                    <h:outputText value="#{createSaleBean.message}" escape="false" />
                 </div>
             </div>
 
             <!-- Page content starts here -->
             <div class="container">
                 <div class="row">
-
+                    <!-- Button trigger modal create user -->
+                    <div class="text-center col-md-6 col-md-offset-3 container">
+                        <div class="row">
+                            <!--<h:commandButton action="" value="createSale" class="btn btn-primary" />-->
+                            <h:button  value="+ Create" class="btn btn-default btn-lg" outcome="createSale"></h:button> 
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -131,9 +121,24 @@
 
         </div>
 
+
+        <!-- Start data table -->
+
+        <div id="table-content">
+            
+        </div>
+
+
+        <!-- End data table -->
+
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
+
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/base.js"></script>
+
     </h:body>
 </html>

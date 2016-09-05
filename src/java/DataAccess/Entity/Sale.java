@@ -6,6 +6,7 @@
 package DataAccess.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fabianlm18
+ * @author Fabian
  */
 @Entity
 @Table(name = "sale")
@@ -70,6 +71,11 @@ public class Sale implements Serializable {
     public Sale(Integer saleId, Date date) {
         this.saleId = saleId;
         this.date = date;
+    }
+    
+    public Sale( Date date ) {
+        this.date = date;
+        ordersCollection = new ArrayList<>();
     }
 
     public Integer getSaleId() {
