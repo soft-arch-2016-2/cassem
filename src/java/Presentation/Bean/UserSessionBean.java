@@ -100,11 +100,11 @@ public class UserSessionBean {
 
         if (!page.startsWith("base")) {
             if (role.equals("EMPLOYEE")) {
-                if (!page.startsWith("createPart") && !page.startsWith("createCar")) {
+                if (!page.startsWith("createPart") && !page.startsWith("createCar") && !page.startsWith("decreasePart")) {
                     redirect = true;
                 }
             } else if (role.equals("SELLER")) {
-                if (!page.startsWith("createClient") && !page.startsWith("createSale")) {
+                if (!page.startsWith("createClient") && !page.startsWith("createSale") && !page.startsWith("sale")) {
                     redirect = true;
                 }
             }
