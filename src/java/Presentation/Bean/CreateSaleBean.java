@@ -63,6 +63,7 @@ public class CreateSaleBean implements Serializable{
         carAmountList = new ArrayList<>();
         orders = new ArrayList<>();
         clientValue = "";
+        
         //clientValue = clients.get(0).getName();
     }
 

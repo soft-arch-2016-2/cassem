@@ -127,15 +127,18 @@
             <table id="example" class="display" cellspacing="0" width="100%"> 
                 <thead>
                     <tr>
+                        <th>Sale Id</th>
                         <th>Employee</th>
                         <th>Name car</th>
                         <th>Amount</th>
-                        <th>Action</th> 
+                        <th>Date Sale</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <ui:repeat value="#{decreasePartBean.allOrders}" var="row">
                     <tr>
                         <ui:repeat value="#{row}" var="cell">
+                            <td>#{cell.saleId.saleId}</td>
                             <td>#{cell.saleId.userId.username.username}</td>
                             <td> #{cell.carId.name} </td>
                             <td>
@@ -149,6 +152,7 @@
                                     </p:inplace>
                                 </h:form>
                             </td>
+                            <td>#{cell.saleId.date}</td>
                             <td>
                                 <h:form>
                                     <h:commandButton action="#{decreasePartBean.assembledOrder( row )}" value="Assemble" class="btn btn-primary">
