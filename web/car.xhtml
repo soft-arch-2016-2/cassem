@@ -24,10 +24,12 @@
         <link href="css/freelancer.min.css" rel="stylesheet"/>
 
         <!-- Base CSS-->
-        <link href="css/createcar.css" rel="stylesheet"/>
+        <link href="css/base.css" rel="stylesheet"/>
         
+        <!-- Table CSS-->
         <link href="css/jquery.dataTables.min.css" rel="stylesheet"/>
-
+        
+        <link href="css/createcar.css" rel="stylesheet"/>
 
         <!-- Custom Fonts -->
         <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -103,8 +105,6 @@
             <!-- /.container-fluid -->
         </nav>
 
-
-        <!-- Modal create part -->
         <div id="page-content">
 
             <div id="notification-bar" class="container">
@@ -123,14 +123,17 @@
                     </div>
                 </div>
                 
-                <div id="table-content">
+            </div>
+        </div>
+                
+        <div id="table-content">
             <table id="example" class="display" cellspacing="0" width="100%"> 
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Name car</th>
                         <th>Price</th>
-                        
+                        <th>Parts</th>
                     </tr>
                 </thead>
                 <ui:repeat value="#{createCarBeanS.cars}" var="row">
@@ -138,14 +141,10 @@
                         <ui:repeat value="#{row}" var="cell">
                             <td> #{cell.carId} </td>
                             <td> #{cell.name} </td>
+                            <td> #{cell.price} </td>
                             <td>
-                                <h:form id="implace-form" >
-                                    <p:inplace id="ajax" editor="f">
-                                        <p:ajax event="save"/>
-                                        <p:inputText value="#{cell.price}" required="true" label="text" >
-                                            <f:attribute name="idPart" value="#{row}" />
-                                        </p:inputText>
-                                    </p:inplace>
+                                <h:form>
+                                    <p:commandLink value="View" styleClass="btn btn-info" action="#{carHasPartBean.getCarHasPartByCar( row )}" update="form-horizontal" oncomplete="$('#modal-view-part').modal('show');" />
                                 </h:form>
                             </td>
                         </ui:repeat>
@@ -153,21 +152,46 @@
                 </ui:repeat>
             </table>
         </div>
-                
+        
+        <h:form id="form-horizontal">	
+            <div class="modal fade" id="modal-view-part" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">    
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Parts</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p:dataTable var="car" value="#{carHasPartBean.carHasPart}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{car.partId.partId}" />
+                                </p:column>
+                                <p:column headerText="Part">
+                                    <h:outputText value="#{car.partId.name}" />
+                                </p:column>
+                                <p:column headerText="Category">
+                                    <h:outputText value="#{car.partId.category}" />
+                                </p:column>
+                                <p:column headerText="Provider">
+                                    <h:outputText value="#{car.partId.provider}" />
+                                </p:column>
+                                <p:column headerText="Price">
+                                    <h:outputText value="#{car.partId.price}" />
+                                </p:column>
+                             </p:dataTable>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            
-            
-            
-        </div>
-
-
+        </h:form>
+        
+        <script src="js/jquery-3.1.0.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/base.js"></script>
+        
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
-
-        <script src="js/jquery-1.12.3.js"></script>
-        <script src="js/jquery.dataTables.min.js"></script>
-        <script src="js/base.js"></script>
+        
     </h:body>
 </html>

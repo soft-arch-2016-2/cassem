@@ -5,8 +5,10 @@
  */
 package DataAccess.DAO;
 
+import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.Part;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,4 +35,34 @@ public class CarHasPartDAO {
         }
         return carHasPart;
     }
+    
+    public List<CarHasPart> listAllCarHasPart(){
+        EntityManager em = emf1.createEntityManager();
+        
+        List<CarHasPart> carHasPart = null;
+        try {
+            carHasPart = em.createNamedQuery("CarHasPart.findAll").getResultList();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }finally{
+            em.close();
+        }
+        return carHasPart;
+    }
+    
+    public List<CarHasPart> listAllCarHasPartByCar(Car car){
+        EntityManager em = emf1.createEntityManager();
+        
+        List<CarHasPart> carHasPart = null;
+        try {
+            carHasPart = em.createNamedQuery("CarHasPart.findByCarId").setParameter("carId", car).getResultList();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }finally{
+            em.close();
+        }
+        return carHasPart;
+    }
+
+    
 }

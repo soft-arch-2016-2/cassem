@@ -6,8 +6,6 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandlePart;
-import BusinessLogic.Controller.HandlePart;
-import DataAccess.Entity.Part;
 import DataAccess.Entity.Part;
 import java.io.IOException;
 import java.io.Serializable;
@@ -156,24 +154,50 @@ public class CreatePartBean implements Serializable {
         message = Util.buildSuccess("Correct", message);
     }
 
-    public void updatePart(ValueChangeEvent event) throws IOException {
+    public void updatePartName(ValueChangeEvent event) throws IOException {
 
         UIInput component = (UIInput) event.getComponent();
 
         Part oldPart = (Part) (component.getAttributes().get("idPart"));
 
-        oldPart.setName(event.getOldValue() + "");
-
         Part newPart = new Part(oldPart);
         newPart.setName(event.getNewValue() + "");
 
-        if(name.isEmpty() || name == null){
+        if(newPart.getName().isEmpty() || newPart.getName() == null){
             message = Util.buildDanger("Error", "Name cannot be empty.");
         }else{
             HandlePart handlePart = new HandlePart();
             message = handlePart.updatePart(oldPart, newPart);
             message = Util.buildSuccess("Correct", message);
+        }
+        FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
+    }
+    
+    public void updatePartStock(ValueChangeEvent event) throws IOException {
+
+        UIInput component = (UIInput) event.getComponent();
+
+        Part oldPart = (Part) (component.getAttributes().get("idPart"));
+
+        Part newPart = new Part(oldPart);
+        
+        try{
+            newPart.setStock(Integer.parseInt(event.getNewValue() + ""));
+        }catch(Exception e){
+            message = Util.buildDanger("Error", "Stock must be a number.");
             FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
         }
+
+        if((event.getNewValue()+"").isEmpty() || (event.getNewValue()+"") == null){
+            message = Util.buildDanger("Error", "Stock cannot be empty.");
+        }else if(newPart.getStock() < 0){
+            message = Util.buildDanger("Error", "Stock cannot be less than zero.");
+        }else{
+            HandlePart handlePart = new HandlePart();
+            message = handlePart.updatePart(oldPart, newPart);
+            message = Util.buildSuccess("Correct", message);
+        }
+        FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
     }
+    
 }

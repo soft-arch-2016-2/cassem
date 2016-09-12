@@ -98,6 +98,7 @@ public class PartDAO {
         try {
             
             oldPart.setName(newPart.getName());
+            oldPart.setStock(newPart.getStock());
             em.merge(oldPart);
             
             em.getTransaction().commit();

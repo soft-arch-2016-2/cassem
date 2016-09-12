@@ -153,12 +153,7 @@
                                 #{cell.clientId.name}
                             </td>
                             <td>
-                                <h:form id="implace-form" >
-                                    <p:inplace id="ajax" editor="false">
-                                        <p:inputText value="#{cell.date}" required="true" label="text" valueChangeListener="#{createPartBean.updatePart}">
-                                        </p:inputText>
-                                    </p:inplace>
-                                </h:form>
+                                #{cell.date}
                             </td>
                         </ui:repeat>
                     </tr>
@@ -168,14 +163,15 @@
 
         <!-- End data table -->
 
+        <script src="js/jquery-3.1.0.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/base.js"></script>
+
+        
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
         <!-- Theme JavaScript -->
         <script src="js/freelancer.min.js"></script>
-
-        <script src="js/jquery-1.12.3.js"></script>
-        <script src="js/jquery.dataTables.min.js"></script>
-        <script src="js/base.js"></script>
 
     </h:body>
 </html>

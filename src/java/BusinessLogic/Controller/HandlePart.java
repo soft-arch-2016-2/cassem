@@ -5,7 +5,9 @@
  */
 package BusinessLogic.Controller;
 
+import DataAccess.DAO.CarHasPartDAO;
 import DataAccess.DAO.PartDAO;
+import DataAccess.Entity.CarHasPart;
 
 import DataAccess.Entity.Part;
 import java.util.List;
@@ -47,7 +49,6 @@ public class HandlePart {
         List<Part> dataList = partDAO.listAllParts();
         return dataList;
     }
-    
     
     public String updatePart(Part oldPart, Part newPart){
         

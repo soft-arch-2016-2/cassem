@@ -35,7 +35,7 @@ public class HandleCar {
                 }
             }
             if( count == parts.size() ){
-                response = "Part has been created succesfully";
+                response = "Cart has been created succesfully";
             }     
         }
         return response;
