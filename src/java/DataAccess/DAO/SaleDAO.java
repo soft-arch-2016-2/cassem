@@ -5,25 +5,22 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.Client;
 import DataAccess.Entity.Sale;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  *
  * @author Milder
  */
 
-public class SaleDAO {
+public class SaleDAO implements Serializable{
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public Sale persist(Sale sale) {
         

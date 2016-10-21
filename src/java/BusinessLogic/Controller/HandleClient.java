@@ -7,13 +7,14 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.ClientDAO;
 import DataAccess.Entity.Client;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Maikol
  */
-public class HandleClient {
+public class HandleClient implements Serializable{
     
     public List<Client> getAllClients() {
         

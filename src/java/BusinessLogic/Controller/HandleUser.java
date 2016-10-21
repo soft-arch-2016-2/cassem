@@ -9,14 +9,22 @@ import DataAccess.DAO.AuthDAO;
 import DataAccess.DAO.UserDAO;
 import DataAccess.Entity.Auth;
 import DataAccess.Entity.User;
+import Presentation.Bean.UserSessionBean;
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author arqsoft_2016_2
  */
-public class HandleUser {
+public class HandleUser implements Serializable{
 
     private static final String ADMIN = "ADMIN";
     private static final String EMPLOYEE = "EMPLOYEE";
@@ -61,21 +69,36 @@ public class HandleUser {
         return response;
     }
 
+     public void loginUser( String username){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+            servletRequest.getSession();
+            servletRequest.login(username, "123");
+        } catch (ServletException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public ResponseMessage login(String username, String password) {
 
         boolean successful = false;
         String message = null;
 
         UserDAO userDAO = new UserDAO();
-
+        
         String user_username = userDAO.searchUserIdByUsernameAndPassword(username, password);
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (user_username == null) {
-            //context.addMessage(null, new FacesMessage("Unknown login, try again"));
+            context.addMessage(null, new FacesMessage("Unknown login, try again"));
         } else {
-            context.getExternalContext().getSessionMap().put("user", user_username);
+            loginUser(user_username);
+            HttpSession session = (HttpSession)context.getExternalContext().getSession(false);
+            session.setAttribute("username", user_username);
+            //context.getExternalContext().getSessionMap().put("user", user_username);
+            //context.getExternalContext().addResponseCookie("user", user_username,null);
             successful = true;
+            
             message = "base?faces-redirect=true";
         }
 

@@ -6,6 +6,7 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +17,9 @@ import javax.persistence.Query;
  *
  * @author arqsoft_2016_2
  */
-public class UserDAO {
+public class UserDAO implements Serializable{
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
 
     public User persist(User user) {
         EntityManager em = emf1.createEntityManager();

@@ -7,14 +7,15 @@ package DataAccess.DAO;
 
 import DataAccess.Entity.Auth;
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class AuthDAO {
+public class AuthDAO implements Serializable{
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
 
     public Auth persist(Auth auth) {
         EntityManager em = emf1.createEntityManager();

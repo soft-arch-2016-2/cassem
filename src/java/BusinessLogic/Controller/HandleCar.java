@@ -10,13 +10,14 @@ import DataAccess.DAO.CarHasPartDAO;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.Part;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Fabian
  */
-public class HandleCar {
+public class HandleCar implements Serializable{
     
     
     public String createCar( String name, long price, List<Part> parts){

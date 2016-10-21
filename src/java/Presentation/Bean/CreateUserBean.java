@@ -13,7 +13,9 @@ import DataAccess.Entity.User;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -24,7 +26,9 @@ import javax.faces.event.ValueChangeEvent;
  * @author arqsoft_2016_2
  */
 @ManagedBean
-@ViewScoped
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
 public class CreateUserBean implements Serializable{
 
     private String username;

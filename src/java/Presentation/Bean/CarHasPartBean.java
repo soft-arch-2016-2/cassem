@@ -8,8 +8,11 @@ package Presentation.Bean;
 import BusinessLogic.Controller.HandleCarHasPart;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -17,8 +20,10 @@ import javax.faces.bean.ViewScoped;
  * @author Maikol
  */
 @ManagedBean
-@ViewScoped
-public class CarHasPartBean {
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
+public class CarHasPartBean implements Serializable{
     
     private List<CarHasPart> carHasPart;
 

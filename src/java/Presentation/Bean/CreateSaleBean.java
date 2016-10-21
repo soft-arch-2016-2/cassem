@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -36,8 +37,9 @@ import org.primefaces.model.DualListModel;
  * @author Milder
  */
 @ManagedBean
-@ViewScoped
-@SessionScoped
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
 public class CreateSaleBean implements Serializable{
 
     private String name;

@@ -5,8 +5,8 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.EmployeeDecreasePart;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,9 +15,9 @@ import javax.persistence.Persistence;
  *
  * @author Fabian
  */
-public class EmployeeDecreasePartDAO {
+public class EmployeeDecreasePartDAO implements Serializable{
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public EmployeeDecreasePart persist(EmployeeDecreasePart employeeDecreasePart) {
         EntityManager em = emf1.createEntityManager();

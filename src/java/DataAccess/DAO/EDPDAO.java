@@ -7,14 +7,15 @@ package DataAccess.DAO;
 
 import DataAccess.Entity.Client;
 import DataAccess.Entity.EmployeeDecreasePart;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 
-public class EDPDAO {
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+public class EDPDAO implements Serializable{
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public Client persist(Client client) {
         

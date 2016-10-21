@@ -10,10 +10,11 @@ import DataAccess.DAO.PartDAO;
 import DataAccess.Entity.CarHasPart;
 
 import DataAccess.Entity.Part;
+import java.io.Serializable;
 import java.util.List;
 
 
-public class HandlePart {
+public class HandlePart implements Serializable{
     
  
     public String createPart(String nombre, int stock, int maxStock, String provider, float price,

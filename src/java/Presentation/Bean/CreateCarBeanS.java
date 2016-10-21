@@ -10,9 +10,12 @@ import BusinessLogic.Controller.HandleCar;
 import BusinessLogic.Controller.HandlePart;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.Part;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.DragDropEvent;
 
@@ -21,8 +24,10 @@ import org.primefaces.event.DragDropEvent;
  * @author Fabian
  */
 @ManagedBean
-@ViewScoped
-public class CreateCarBeanS {
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
+public class CreateCarBeanS implements Serializable{
     
     private String name;
     private String message;

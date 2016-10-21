@@ -12,6 +12,7 @@ import DataAccess.Entity.Client;
 import DataAccess.Entity.Orders;
 import DataAccess.Entity.Sale;
 import DataAccess.Entity.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  * @author Milder
  */
-public class HandleSale {
+public class HandleSale implements Serializable{
     
     
     public List<Sale> getAllSales() {

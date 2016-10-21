@@ -13,6 +13,7 @@ import DataAccess.Entity.CarHasPart;
 import DataAccess.Entity.EmployeeDecreasePart;
 import DataAccess.Entity.Orders;
 import DataAccess.Entity.Part;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 
 
 
-public class HandleOrder {
+public class HandleOrder implements Serializable{
     
     
     public List<Orders> getAllOrders(){

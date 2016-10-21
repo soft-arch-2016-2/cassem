@@ -7,19 +7,33 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
 import BusinessLogic.Controller.ResponseMessage;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author fabianlm17-toshiba
  */
-@ManagedBean
-@RequestScoped
-public class UserSessionBean {
+@ManagedBean(name="userSessionBean",eager=true)
+//@SessionScoped
+@ApplicationScoped
+public class UserSessionBean implements Serializable {
 
     public UserSessionBean() {
     }
@@ -52,12 +66,28 @@ public class UserSessionBean {
         this.message = message;
     }
 
+    /*public String getUserNameCookie(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        Cookie cookie = (Cookie)context.getExternalContext().getRequestCookieMap().get("user");
+        return cookie.getValue();
+    }*/
+    
     public void isLogged() {
         FacesContext context = FacesContext.getCurrentInstance();
-        String username = (String) context.getExternalContext().getSessionMap().get("user");
-        if (username == null) {
+        //String username = (String) context.getExternalContext().getSessionMap().get("user");
+        
+        username =getUsernameSession(context);
+        //username = getUserNameCookie();
+        if (username == null || username.equals("")) {
             context.getApplication().getNavigationHandler().handleNavigation(context, null, "/login?faces-redirect=true");
         }
+    }
+    
+    public String getUser(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        String username = getUsernameSession(context);
+        //String username = (String) context.getExternalContext().getSessionMap().get("user");
+        return username;
     }
 
     @EJB
@@ -78,21 +108,55 @@ public class UserSessionBean {
     }
 
     public String logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //context.getExternalContext().addResponseCookie("user", "",null);
+        //FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().remove("user");
+               
+         try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+            servletRequest.logout();
+            servletRequest.getSession().invalidate();
+
+        } catch (ServletException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return "index?faces-redirect=true";
     }
+    
+    public String getUsernameSession(FacesContext context ){
+        
+         HttpSession session = (HttpSession)context.getExternalContext().getSession(false);
+         
+         return (String)session.getAttribute("username");
+    }
+    
+    public void loginUser(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+            servletRequest.getSession();
+            servletRequest.login(username, "123");
+        } catch (ServletException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     public void isCorrectRole() {
 
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpServletRequest servletRequest = (HttpServletRequest) ctx.getExternalContext().getRequest();
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
+        
         String fullURI = servletRequest.getRequestURI();
 
         String[] hierarchy = fullURI.split("/");
         String page = hierarchy[hierarchy.length - 1];
 
-        String user_username = (String) ctx.getExternalContext().getSessionMap().get("user");
-
+        //String user_username = getUserNameCookie();
+        String user_username = getUsernameSession(context);
+        //String user_username =(String) ctx.getExternalContext().getSessionMap().get("user");
         HandleUser handleUser = new HandleUser();
         String role = handleUser.getRoleByUsername(user_username);
 
@@ -111,7 +175,14 @@ public class UserSessionBean {
         }
 
         if (redirect) {
-            ctx.getApplication().getNavigationHandler().handleNavigation(ctx, null, "/base?faces-redirect=true");
+            context.getApplication().getNavigationHandler().handleNavigation(context, null, "/base?faces-redirect=true");
         }
     }
+
+    public boolean userExist( FacesContext context){
+        return false;
+        //ExternalContext ext = context.getExternalContext();
+        //return ext.getSessionMap().containsKey(ext);
+    }
+    
 }

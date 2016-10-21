@@ -5,9 +5,15 @@
  */
 package Presentation.Bean;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
-
-public class Util {
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
+public class Util implements Serializable {
 
     private static final String ALERT_SUCCESS = "success";
     private static final String ALERT_DANGER = "danger";

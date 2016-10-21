@@ -6,23 +6,21 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Client;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  *
  * @author Maikol
  */
 
-public class ClientDAO {
+public class ClientDAO implements Serializable{
 
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public Client persist(Client client) {
         

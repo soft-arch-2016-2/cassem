@@ -37,11 +37,6 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <f:event type="preRenderView"
-                 listener="#{userSessionBean.isLogged()}" />
-        
-        <f:event type="preRenderView"
-                 listener="#{userSessionBean.isCorrectRole()}" />
 
     </h:head>
 
@@ -124,9 +119,11 @@
             </div>
 
             <!-- Page content starts here -->
+            
+            
             <div class="container">
                 <div class="row">
-
+                    <h3>#{userSessionBean.getUser()}</h3>
                 </div>
             </div>
 

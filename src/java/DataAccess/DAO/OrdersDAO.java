@@ -5,8 +5,8 @@
  */
 package DataAccess.DAO;
 
-import DataAccess.Entity.Car;
 import DataAccess.Entity.Orders;
+import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,9 +15,9 @@ import javax.persistence.Persistence;
  *
  * @author Fabian
  */
-public class OrdersDAO {
+public class OrdersDAO implements Serializable{
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public Orders persist( Orders order ) {
         EntityManager em = emf1.createEntityManager();

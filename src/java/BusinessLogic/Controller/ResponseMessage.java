@@ -5,7 +5,9 @@
  */
 package BusinessLogic.Controller;
 
-public class ResponseMessage {
+import java.io.Serializable;
+
+public class ResponseMessage implements Serializable{
     private boolean successful;
     private String message;
 

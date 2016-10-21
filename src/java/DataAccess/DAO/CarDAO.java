@@ -2,21 +2,20 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Car;
-import DataAccess.Entity.Part;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  *
  * @author Fabian
  */
-public class CarDAO {
+public class CarDAO implements Serializable{
     
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
     
     public Car persist(Car car) {
         EntityManager em = emf1.createEntityManager();

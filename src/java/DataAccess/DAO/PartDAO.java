@@ -6,19 +6,17 @@
 package DataAccess.DAO;
 
 import DataAccess.Entity.Part;
-import DataAccess.Entity.Part;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 
 
-public class PartDAO {
+public class PartDAO implements Serializable{
     
-    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPU");
+    public EntityManagerFactory emf1 = Persistence.createEntityManagerFactory("CassemPUR");
 
     public Part persist(Part part) {
         EntityManager em = emf1.createEntityManager();

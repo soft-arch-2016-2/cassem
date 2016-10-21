@@ -8,13 +8,14 @@ package BusinessLogic.Controller;
 import DataAccess.DAO.CarHasPartDAO;
 import DataAccess.Entity.Car;
 import DataAccess.Entity.CarHasPart;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Maikol
  */
-public class HandleCarHasPart {
+public class HandleCarHasPart implements Serializable{
     
     public List<CarHasPart> getAllCarHasPart(){
         CarHasPartDAO carHasPartDAO = new CarHasPartDAO();

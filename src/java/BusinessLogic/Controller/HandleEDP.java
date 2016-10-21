@@ -7,9 +7,10 @@ package BusinessLogic.Controller;
 
 import DataAccess.DAO.EDPDAO;
 import DataAccess.Entity.EmployeeDecreasePart;
+import java.io.Serializable;
 import java.util.List;
 
-public class HandleEDP {
+public class HandleEDP implements Serializable{
     
     public HandleEDP(){
     }

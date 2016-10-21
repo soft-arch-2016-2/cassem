@@ -10,6 +10,7 @@ import DataAccess.Entity.Client;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -22,8 +23,9 @@ import javax.faces.event.ValueChangeEvent;
  * @author Maikol
  */
 @ManagedBean
-@ViewScoped
-@SessionScoped
+//@ViewScoped
+//@SessionScoped
+@ApplicationScoped
 public class CreateClientBean implements Serializable {
 
     private String name;
