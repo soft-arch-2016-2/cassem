@@ -6,6 +6,8 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandlePart;
+import BusinessLogic.Service.HandleBusService;
+import BusinessLogic.Service.ResponseMessage;
 import DataAccess.Entity.Part;
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,6 +19,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.xml.ws.Holder;
 
 /**
  *
@@ -38,8 +41,45 @@ public class CreatePartBean implements Serializable {
     private List<Part> parts;
     private int partId;
 
+    private int amountUnKit;
+    private int amountPartAccessories;
+    private int idUnKit;
+    private int idPartAccessories;
+
     public CreatePartBean() {
 
+    }
+
+    public int getAmountUnKit() {
+        return amountUnKit;
+    }
+
+    public void setAmountUnKit(int amountUnKit) {
+        this.amountUnKit = amountUnKit;
+    }
+
+    public int getAmountPartAccessories() {
+        return amountPartAccessories;
+    }
+
+    public void setAmountPartAccessories(int amountPartAccessories) {
+        this.amountPartAccessories = amountPartAccessories;
+    }
+
+    public int getIdUnKit() {
+        return idUnKit;
+    }
+
+    public void setIdUnKit(int idUnKit) {
+        this.idUnKit = idUnKit;
+    }
+
+    public int getIdPartAccessories() {
+        return idPartAccessories;
+    }
+
+    public void setIdPartAccessories(int idPartAccessories) {
+        this.idPartAccessories = idPartAccessories;
     }
 
     public String getName() {
@@ -130,23 +170,53 @@ public class CreatePartBean implements Serializable {
     }
 
     public void createPart() {
-        
-        if(name.isEmpty() || name == null){
+
+        if (name.isEmpty() || name == null) {
             message = Util.buildDanger("Error", "Name cannot be empty.");
-        }else if(!Util.onlyNumbers(stock+"")){
+        } else if (!Util.onlyNumbers(stock + "")) {
             message = Util.buildDanger("Error", "Stock must have only letters.");
-        }else if(!Util.onlyNumbers(maxStock+"")){
+        } else if (!Util.onlyNumbers(maxStock + "")) {
             message = Util.buildDanger("Error", "Max Stock must have only letters.");
-        }else if(!Util.onlyLetters(provider)){
+        } else if (!Util.onlyLetters(provider)) {
             message = Util.buildDanger("Error", "Provider must have only letters.");
-        }else if(!Util.onlyFloatNumbers(price)){
+        } else if (!Util.onlyFloatNumbers(price)) {
             message = Util.buildDanger("Error", "Price must be a number.");
-        }else if(!Util.onlyLetters(category)){
+        } else if (!Util.onlyLetters(category)) {
             message = Util.buildDanger("Error", "Category must have only letters.");
-        }else{
+        } else {
             HandlePart HandlePart = new HandlePart();
             message = HandlePart.createPart(name, stock, maxStock, provider, Float.parseFloat(price), category);
             message = Util.buildSuccess("Correct", message);
+        }
+    }
+
+    public void acquire() {
+        final int userUnKit = 4;
+        ResponseMessage response = HandleBusService.ccuesbOperation(idUnKit, amountUnKit, userUnKit, idPartAccessories, amountPartAccessories);
+        if (response != null && response.isSuccess()) {
+            HandlePart handlePart = new HandlePart();
+            Part unKit = handlePart.getPartById(idUnKit);
+            Part accessories = handlePart.getPartById(idPartAccessories);
+            if (unKit == null) {
+                message = Util.buildDanger("Error", "You must create a part with ID: " + idUnKit);
+            }else if (accessories == null) {
+                message = Util.buildDanger("Error", "You must create a part with ID: " + idPartAccessories);
+            } else {
+                Part newUnKit = new Part(unKit);
+                newUnKit.setStock(newUnKit.getStock() + amountUnKit);
+                Part newAccesories = new Part(accessories);
+                newAccesories.setStock(newAccesories.getStock() + amountPartAccessories);
+                String messageUnKit = handlePart.updatePart(unKit, newUnKit);
+                String messageAccesories = handlePart.updatePart(accessories, newAccesories);
+                if(messageUnKit.equals("Part has not been updated"))
+                    message = Util.buildDanger("Error", "There was a problem updating: " + idUnKit);
+                else if(messageAccesories.equals("Part has not been updated"))
+                    message = Util.buildDanger("Error", "There was a problem updating: " + idPartAccessories);
+                else
+                    message = Util.buildSuccess("Correct", "Transaction completed");
+            }
+        } else {
+            message = Util.buildDanger("Error", "Incomplete Transaction");
         }
     }
 
@@ -167,16 +237,16 @@ public class CreatePartBean implements Serializable {
         Part newPart = new Part(oldPart);
         newPart.setName(event.getNewValue() + "");
 
-        if(newPart.getName().isEmpty() || newPart.getName() == null){
+        if (newPart.getName().isEmpty() || newPart.getName() == null) {
             message = Util.buildDanger("Error", "Name cannot be empty.");
-        }else{
+        } else {
             HandlePart handlePart = new HandlePart();
             message = handlePart.updatePart(oldPart, newPart);
             message = Util.buildSuccess("Correct", message);
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
     }
-    
+
     public void updatePartStock(ValueChangeEvent event) throws IOException {
 
         UIInput component = (UIInput) event.getComponent();
@@ -184,24 +254,24 @@ public class CreatePartBean implements Serializable {
         Part oldPart = (Part) (component.getAttributes().get("idPart"));
 
         Part newPart = new Part(oldPart);
-        
-        try{
+
+        try {
             newPart.setStock(Integer.parseInt(event.getNewValue() + ""));
-        }catch(Exception e){
+        } catch (Exception e) {
             message = Util.buildDanger("Error", "Stock must be a number.");
             FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
         }
 
-        if((event.getNewValue()+"").isEmpty() || (event.getNewValue()+"") == null){
+        if ((event.getNewValue() + "").isEmpty() || (event.getNewValue() + "") == null) {
             message = Util.buildDanger("Error", "Stock cannot be empty.");
-        }else if(newPart.getStock() < 0){
+        } else if (newPart.getStock() < 0) {
             message = Util.buildDanger("Error", "Stock cannot be less than zero.");
-        }else{
+        } else {
             HandlePart handlePart = new HandlePart();
             message = handlePart.updatePart(oldPart, newPart);
             message = Util.buildSuccess("Correct", message);
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("createPart.xhtml");
     }
-    
+
 }

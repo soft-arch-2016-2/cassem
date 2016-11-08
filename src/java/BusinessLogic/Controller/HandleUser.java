@@ -30,7 +30,7 @@ public class HandleUser implements Serializable{
     private static final String EMPLOYEE = "EMPLOYEE";
     private static final String SELLER = "SELLER";
 
-    public ResponseMessage createAccount(String username, String password, String role) {
+    public ResponseMessageCassem createAccount(String username, String password, String role) {
 
         String message = "User has not been created succesfully";
         boolean result = false;
@@ -64,7 +64,7 @@ public class HandleUser implements Serializable{
 
         }
 
-        ResponseMessage response = new ResponseMessage(result, message);
+        ResponseMessageCassem response = new ResponseMessageCassem(result, message);
 
         return response;
     }
@@ -79,7 +79,7 @@ public class HandleUser implements Serializable{
             Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public ResponseMessage login(String username, String password) {
+    public ResponseMessageCassem login(String username, String password) {
 
         boolean successful = false;
         String message = null;
@@ -102,7 +102,7 @@ public class HandleUser implements Serializable{
             message = "base?faces-redirect=true";
         }
 
-        ResponseMessage response = new ResponseMessage(successful, message);
+        ResponseMessageCassem response = new ResponseMessageCassem(successful, message);
         return response;
     }
 

@@ -5,6 +5,7 @@
  */
 package BusinessLogic.Controller;
 
+import BusinessLogic.Service.HandleBusService;
 import DataAccess.DAO.CarHasPartDAO;
 import DataAccess.DAO.PartDAO;
 import DataAccess.Entity.CarHasPart;
@@ -51,6 +52,13 @@ public class HandlePart implements Serializable{
         return dataList;
     }
     
+    public Part getPartById(int id){
+        Part part = null;
+        PartDAO partDAO = new PartDAO();
+        part = partDAO.partById(id);
+        return part;
+    }
+    
     public String updatePart(Part oldPart, Part newPart){
         
         String response = "Part has not been updated";
@@ -64,5 +72,7 @@ public class HandlePart implements Serializable{
         return response;
         
     }
+    
+    
     
 }

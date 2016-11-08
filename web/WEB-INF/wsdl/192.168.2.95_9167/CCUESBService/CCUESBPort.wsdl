@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="CCUESB" targetNamespace="http://j2ee.netbeans.org/wsdl/CCUBpelOrquetationCCU/src/CCUESB" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://j2ee.netbeans.org/wsdl/CCUBpelOrquetationCCU/src/CCUESB" xmlns:ns0="http://service.businesslogic.unkitsolutions.co/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/CCUBpelOrquetationCCU/src/CCUESB">
+            <xsd:import namespace="http://service.businesslogic.unkitsolutions.co/" schemaLocation="http://192.168.2.45:8080/unkit/PartSellerWS?xsd=1"/>
+        </xsd:schema>
+  </types>
+  <message name="CCUESBOperationResponse">
+    <part name="responseMessage" type="ns0:responseMessage">
+    </part>
+  </message>
+  <message name="CCUESBOperationRequest">
+    <part name="idPart" type="xsd:int">
+    </part>
+    <part name="amountPart" type="xsd:int">
+    </part>
+    <part name="idUser" type="xsd:int">
+    </part>
+    <part name="idAccessory" type="xsd:long">
+    </part>
+    <part name="amountAccessory" type="xsd:long">
+    </part>
+  </message>
+  <portType name="CCUESBPortType">
+    <operation name="CCUESBOperation">
+      <input name="input1" message="tns:CCUESBOperationRequest">
+    </input>
+      <output name="output1" message="tns:CCUESBOperationResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="CCUESBBinding" type="tns:CCUESBPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CCUESBOperation">
+      <soap:operation/>
+      <input name="input1">
+        <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/CCUBpelOrquetationCCU/src/CCUESB"/>
+      </input>
+      <output name="output1">
+        <soap:body use="literal" namespace="http://j2ee.netbeans.org/wsdl/CCUBpelOrquetationCCU/src/CCUESB"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="CCUESBService">
+    <port name="CCUESBPort" binding="tns:CCUESBBinding">
+      <soap:address location="http://cluster:9167/CCUESBService/CCUESBPort"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="CCUESB">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="CCUESBPortTypeRole" portType="tns:CCUESBPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

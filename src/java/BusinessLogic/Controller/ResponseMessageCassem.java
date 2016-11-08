@@ -7,11 +7,11 @@ package BusinessLogic.Controller;
 
 import java.io.Serializable;
 
-public class ResponseMessage implements Serializable{
+public class ResponseMessageCassem implements Serializable{
     private boolean successful;
     private String message;
 
-    public ResponseMessage(boolean result, String message) {
+    public ResponseMessageCassem(boolean result, String message) {
         this.successful = result;
         this.message = message;
     }

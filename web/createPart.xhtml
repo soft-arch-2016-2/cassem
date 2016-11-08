@@ -122,6 +122,9 @@
                             <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-create-part">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"/> Create
                             </button> 
+                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modal-adquire-part">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"/> Acquire
+                            </button> 
                         </div>
                     </div>
                 </div>
@@ -203,10 +206,73 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <h:commandButton action="#{createPartBean.createPart()}" value="Create" class="btn btn-primary"/>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </h:form>
+        
+        <!-- Modal create part -->
+        <h:form class="form-horizontal">
+            <div class="modal fade" id="modal-adquire-part" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Acquire part</h4>
+                        </div>
+                        <div class="modal-body">
+                            <fieldset>
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Id Accessory</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createPartBean.idPartAccessories}" class="input-xlarge" />
+                                        <p class="help-block">Id can contain only one number without space</p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Amount Accessory</label>
+                                    <div class="controls">
+                                        <p:spinner id="amountAccessories" value="#{createPartBean.amountPartAccessories}" />
+                                        <p class="help-block">Amount can contain only one number without space</p>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Id part</label>
+                                    <div class="controls">
+                                        <p:inputText value="#{createPartBean.idUnKit}" class="input-xlarge" />
+                                       
+                                        <p class="help-block">Id can contain only one number without space</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <!-- Username -->
+                                    <label class="control-label"  for="username">Amount Part</label>
+                                    <div class="controls">
+                                        <p:spinner id="amountPartUnKit" value="#{createPartBean.amountUnKit}" />
+                                        <p class="help-block">Amount can contain only one number without space</p>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <h:commandButton action="#{createPartBean.acquire()}" value="Create" class="btn btn-primary"/>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        
+        
 
 
         <div id="table-content">

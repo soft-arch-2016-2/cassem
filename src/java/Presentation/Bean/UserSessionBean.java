@@ -6,11 +6,11 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
-import BusinessLogic.Controller.ResponseMessage;
+import BusinessLogic.Controller.ResponseMessageCassem;
+import BusinessLogic.Service.HandleBusService;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -90,11 +90,11 @@ public class UserSessionBean implements Serializable {
         return username;
     }
 
-    @EJB
     public String login() {
+        
         HandleUser handleUser = new HandleUser();
 
-        ResponseMessage response = handleUser.login(username, password);
+        ResponseMessageCassem response = handleUser.login(username, password);
 
         username = password = "";
 

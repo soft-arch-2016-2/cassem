@@ -7,7 +7,7 @@ package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleClient;
 import BusinessLogic.Controller.HandleUser;
-import BusinessLogic.Controller.ResponseMessage;
+import BusinessLogic.Controller.ResponseMessageCassem;
 import DataAccess.Entity.Client;
 import DataAccess.Entity.User;
 import java.io.IOException;
@@ -83,7 +83,7 @@ public class CreateUserBean implements Serializable{
 
     public void createUser() {
         HandleUser handleUser = new HandleUser();
-        ResponseMessage response = handleUser.createAccount(username, password, type);
+        ResponseMessageCassem response = handleUser.createAccount(username, password, type);
 
         if (response.isSuccessful()) {
             message = Util.buildSuccess("Correct", response.getMessage());

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 
 
@@ -31,6 +32,23 @@ public class PartDAO implements Serializable{
         } finally {
             em.close();
         }
+        return part;
+    }
+    
+    public Part partById(int id){
+        Part part = null;
+        EntityManager em = emf1.createEntityManager();
+        Query query = em.createNamedQuery("Part.findByPartId");
+        query.setParameter("partId", id);
+        
+        try {
+            part = (Part) query.getSingleResult();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }finally{
+            em.close();
+        }
+        
         return part;
     }
     

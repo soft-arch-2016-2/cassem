@@ -2,7 +2,16 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="CassemPUR" transaction-type="JTA">
     <jta-data-source>java:app/CassemDB</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>DataAccess.Entity.Auth</class>
+    <class>DataAccess.Entity.Car</class>
+    <class>DataAccess.Entity.CarHasPart</class>
+    <class>DataAccess.Entity.Client</class>
+    <class>DataAccess.Entity.EmployeeDecreasePart</class>
+    <class>DataAccess.Entity.Orders</class>
+    <class>DataAccess.Entity.Part</class>
+    <class>DataAccess.Entity.Sale</class>
+    <class>DataAccess.Entity.User</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
 </persistence>
