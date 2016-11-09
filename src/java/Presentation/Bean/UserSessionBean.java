@@ -6,6 +6,7 @@
 package Presentation.Bean;
 
 import BusinessLogic.Controller.HandleUser;
+import BusinessLogic.Controller.LoginLdap;
 import BusinessLogic.Controller.ResponseMessageCassem;
 import BusinessLogic.Service.HandleBusService;
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author fabianlm17-toshiba
  */
-@ManagedBean(name="userSessionBean",eager=true)
+@ManagedBean(name = "userSessionBean", eager = true)
 //@SessionScoped
 @ApplicationScoped
 public class UserSessionBean implements Serializable {
@@ -71,19 +72,18 @@ public class UserSessionBean implements Serializable {
         Cookie cookie = (Cookie)context.getExternalContext().getRequestCookieMap().get("user");
         return cookie.getValue();
     }*/
-    
     public void isLogged() {
         FacesContext context = FacesContext.getCurrentInstance();
         //String username = (String) context.getExternalContext().getSessionMap().get("user");
-        
-        username =getUsernameSession(context);
+
+        username = getUsernameSession(context);
         //username = getUserNameCookie();
         if (username == null || username.equals("")) {
             context.getApplication().getNavigationHandler().handleNavigation(context, null, "/login?faces-redirect=true");
         }
     }
-    
-    public String getUser(){
+
+    public String getUser() {
         FacesContext context = FacesContext.getCurrentInstance();
         String username = getUsernameSession(context);
         //String username = (String) context.getExternalContext().getSessionMap().get("user");
@@ -91,19 +91,25 @@ public class UserSessionBean implements Serializable {
     }
 
     public String login() {
-        
+
         HandleUser handleUser = new HandleUser();
 
         ResponseMessageCassem response = handleUser.login(username, password);
-
-        username = password = "";
 
         if (!response.isSuccessful()) {
             message = Util.buildDanger("Error", "Username or password incorrect");
             return "";
         } else {
-            message = "";
-            return "base?faces-redirect=true";
+            LoginLdap loginLdap = new LoginLdap();
+            if (loginLdap.connect() && loginLdap.validatePassword(username, password)) {
+                message = "";
+                username = password = "";
+                return "base?faces-redirect=true";
+            } else {
+                message = Util.buildDanger("Error", "Username or password incorrect");
+                username = password = "";
+                return "";
+            }
         }
     }
 
@@ -111,8 +117,8 @@ public class UserSessionBean implements Serializable {
         //FacesContext context = FacesContext.getCurrentInstance();
         //context.getExternalContext().addResponseCookie("user", "",null);
         //FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().remove("user");
-               
-         try {
+
+        try {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
             servletRequest.logout();
@@ -121,18 +127,18 @@ public class UserSessionBean implements Serializable {
         } catch (ServletException ex) {
             Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return "index?faces-redirect=true";
     }
-    
-    public String getUsernameSession(FacesContext context ){
-        
-         HttpSession session = (HttpSession)context.getExternalContext().getSession(false);
-         
-         return (String)session.getAttribute("username");
+
+    public String getUsernameSession(FacesContext context) {
+
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+
+        return (String) session.getAttribute("username");
     }
-    
-    public void loginUser(){
+
+    public void loginUser() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -142,13 +148,12 @@ public class UserSessionBean implements Serializable {
             Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     public void isCorrectRole() {
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest servletRequest = (HttpServletRequest) context.getExternalContext().getRequest();
-        
+
         String fullURI = servletRequest.getRequestURI();
 
         String[] hierarchy = fullURI.split("/");
@@ -179,10 +184,10 @@ public class UserSessionBean implements Serializable {
         }
     }
 
-    public boolean userExist( FacesContext context){
+    public boolean userExist(FacesContext context) {
         return false;
         //ExternalContext ext = context.getExternalContext();
         //return ext.getSessionMap().containsKey(ext);
     }
-    
+
 }
